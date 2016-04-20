@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.akodiakson.pitchcounter.fragment.GameFragment">
 
     <LinearLayout
@@ -31,7 +32,7 @@
         style="@style/ButtonContainerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
+        android:layout_gravity="top|end"
         android:orientation="horizontal">
 
         <TextView
@@ -53,11 +54,11 @@
         style="@style/ButtonContainerStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
+        android:layout_gravity="top|center_horizontal"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/game_entry_hit_strikeout_value"
+            android:id="@+id/game_entry_hit_strikeout_button_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_entry_numeric_default_value" />
@@ -124,7 +125,9 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/button_container_min_height"
         android:layout_marginBottom="@dimen/button_container_min_height"
-        android:layout_gravity="left|center_vertical">
+        android:layout_gravity="start|center_vertical"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/game_entry_card_color">
 
         <LinearLayout
             android:layout_width="match_parent"

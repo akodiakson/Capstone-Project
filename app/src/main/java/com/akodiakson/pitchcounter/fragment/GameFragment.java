@@ -21,17 +21,32 @@ public class GameFragment extends Fragment {
     @Bind(R.id.game_entry_strike_button)
     View strikeButton;
 
+    @Bind(R.id.game_entry_strike_button_value)
+    View strikeCount;
+
     @Bind(R.id.game_entry_ball_button)
     View ballButton;
+
+    @Bind(R.id.game_entry_ball_button_value)
+    View ballCount;
 
     @Bind(R.id.game_entry_hit_button)
     View hitButton;
 
+    @Bind(R.id.game_entry_hit_button_value)
+    View hitCount;
+
     @Bind(R.id.game_entry_walk_button)
     View walkButton;
 
+    @Bind(R.id.game_entry_walk_button_value)
+    View walkCount;
+
     @Bind(R.id.game_entry_strikeout_button)
     View strikeoutButton;
+
+    @Bind(R.id.game_entry_hit_strikeout_button_value)
+    View strikeoutCount;
 
     public GameFragment() {
     }

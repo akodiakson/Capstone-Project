@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PitchCounter</string>
+    <string name="app_name">Pitch Counter</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="game_entry_numeric_default_value">0</string>
