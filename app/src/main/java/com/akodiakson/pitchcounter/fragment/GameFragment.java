@@ -1,8 +1,11 @@
 package com.akodiakson.pitchcounter.fragment;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +19,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     @Bind(R.id.game_entry_pitch_count_value)
     View pitchCount;
@@ -90,6 +93,21 @@ public class GameFragment extends Fragment {
 
     @OnClick(R.id.game_entry_strikeout_button)
     public void strikeoutTapped(View buttonView){
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 }

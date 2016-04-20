@@ -8,6 +8,10 @@ import android.net.Uri;
 
 public class GameContentProvider extends ContentProvider {
 
+    private static final String AUTHORITY = "com.akodiakson.pitchcounter.provider";
+    private static final String BASE_PATH = "games";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
+
     private GameDbHelper gameDbHelper;
     public GameContentProvider() {
     }

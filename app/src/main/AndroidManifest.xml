@@ -18,9 +18,9 @@
 
         <provider
             android:name=".data.GameContentProvider"
-            android:authorities="com.akodiakson.pitchcounter"
+            android:authorities="com.akodiakson.pitchcounter.provider"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false"/>
     </application>
 
 </manifest>
