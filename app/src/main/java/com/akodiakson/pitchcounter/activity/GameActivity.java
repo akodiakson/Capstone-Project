@@ -1,9 +1,11 @@
-package com.akodiakson.pitchcounter;
+package com.akodiakson.pitchcounter.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.akodiakson.pitchcounter.R;
+
+public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
