@@ -15,6 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".data.GameContentProvider"
+            android:authorities="com.akodiakson.pitchcounter"
+            android:enabled="true"
+            android:exported="false"></provider>
     </application>
 
 </manifest>

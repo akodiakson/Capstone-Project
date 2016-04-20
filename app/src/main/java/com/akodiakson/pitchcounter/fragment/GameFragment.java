@@ -18,6 +18,9 @@ import butterknife.OnClick;
  */
 public class GameFragment extends Fragment {
 
+    @Bind(R.id.game_entry_pitch_count_value)
+    View pitchCount;
+
     @Bind(R.id.game_entry_strike_button)
     View strikeButton;
 
