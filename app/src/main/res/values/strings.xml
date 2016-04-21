@@ -11,5 +11,5 @@
     <string name="game_entry_walk_label">Walk</string>
     <string name="game_entry_strikeout_label">Strikeout</string>
 
-
+    <string name="game_entry_history_menu_item">History</string>
 </resources>

@@ -3,10 +3,14 @@ package com.akodiakson.pitchcounter.fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -63,6 +67,28 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         View rootView = inflater.inflate(R.layout.fragment_game, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_game_entry, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.menu_item_history_master){
+            //TODO -- Start history master
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
