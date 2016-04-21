@@ -1,7 +1,5 @@
 package com.akodiakson.pitchcounter.data;
 
-import android.provider.CalendarContract;
-
 /**
  * Created by ace0808 on 4/19/2016.
  */
@@ -18,8 +16,15 @@ public final class GameContract {
     public static final String STRIKEOUTS = "strikeouts";
     public static final String WALKS = "walks";
 
+    public static final String GAME_COUNT_FOR_DATE = "gameCountForDate";
+    public static final String GAME_COUNT_FOR_DATE_SELECTION = "count(*) as gameCountForDate";
+
     public static final String[] PROJECTION_ALL_COLUMNS = new String[]{
             _ID, DATE, PITCHES, STRIKES, BALLS, HITS, STRIKEOUTS, WALKS
+    };
+
+    public static final String[] PROJECTION_GAME_COUNT_FOR_DATE = new String[]{
+            GAME_COUNT_FOR_DATE_SELECTION
     };
 
     public static final String SQL_CREATE = "CREATE TABLE " +
@@ -32,6 +37,6 @@ public final class GameContract {
                 BALLS + " INTEGER, " +
                 HITS + " INTEGER, " +
                 WALKS + " INTEGER, " +
-                STRIKES + " INTEGER " +
+                STRIKEOUTS + " INTEGER " +
             ")";
 }

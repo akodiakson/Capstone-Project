@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:id="@+id/game_entry_hit_button"
-        style="@style/ButtonContainerStyle"
+        style="@style/ButtonContainerStyleSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|start"
@@ -29,7 +29,7 @@
 
     <LinearLayout
         android:id="@+id/game_entry_walk_button"
-        style="@style/ButtonContainerStyle"
+        style="@style/ButtonContainerStyleSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|end"
@@ -51,7 +51,7 @@
 
     <LinearLayout
         android:id="@+id/game_entry_strikeout_button"
-        style="@style/ButtonContainerStyle"
+        style="@style/ButtonContainerStyleSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
@@ -74,7 +74,7 @@
 
     <LinearLayout
         android:id="@+id/game_entry_ball_button"
-        style="@style/ButtonContainerStyle"
+        style="@style/ButtonContainerStyleSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
@@ -98,7 +98,7 @@
 
     <LinearLayout
         android:id="@+id/game_entry_strike_button"
-        style="@style/ButtonContainerStyle"
+        style="@style/ButtonContainerStyleSecondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

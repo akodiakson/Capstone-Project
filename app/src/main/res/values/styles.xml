@@ -9,10 +9,16 @@
         <item name="android:windowBackground">@color/appWindowBackground</item>
     </style>
 
-    <style name="ButtonContainerStyle">
+    <style name="ButtonContainerStyleSecondary">
         <item name="android:padding">@dimen/game_entry_button_container_padding</item>
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="ButtonContainerStylePrimary">
+        <item name="android:padding">@dimen/game_entry_button_container_padding</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:minHeight">96dp</item>
     </style>
 
     <style name="ButtonLabelTextStyle" parent="TextAppearance.AppCompat.Widget.Button">
@@ -22,5 +28,14 @@
     <style name="PitchCountHeroTextStyle" parent="TextAppearance.AppCompat.Display4">
 
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

@@ -12,4 +12,6 @@
     <string name="game_entry_strikeout_label">Strikeout</string>
 
     <string name="game_entry_history_menu_item">History</string>
+    <string name="title_gamesummary_list">GameSummaries</string>
+    <string name="title_gamesummary_detail">GameSummary Detail</string>
 </resources>

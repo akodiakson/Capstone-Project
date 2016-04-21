@@ -20,7 +20,21 @@
             android:name=".data.GameContentProvider"
             android:authorities="com.akodiakson.pitchcounter.provider"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+
+        <activity
+            android:name=".activity.GameSummaryListActivity"
+            android:label="@string/title_gamesummary_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".activity.GameSummaryDetailActivity"
+            android:label="@string/title_gamesummary_detail"
+            android:parentActivityName=".activity.GameSummaryListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.akodiakson.pitchcounter.activity.GameSummaryListActivity" />
+        </activity>
     </application>
 
 </manifest>
