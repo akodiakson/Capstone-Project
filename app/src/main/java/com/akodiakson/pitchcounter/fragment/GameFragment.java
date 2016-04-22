@@ -23,9 +23,11 @@ import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.activity.GameSummaryListActivity;
 import com.akodiakson.pitchcounter.data.GameContentProvider;
 import com.akodiakson.pitchcounter.data.GameContract;
+import com.akodiakson.pitchcounter.data.GameCursorUtil;
 import com.akodiakson.pitchcounter.data.LoaderIdConstants;
 import com.akodiakson.pitchcounter.data.StatType;
 import com.akodiakson.pitchcounter.data.UpdateStatQueryHandler;
+import com.akodiakson.pitchcounter.model.Game;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -42,37 +44,37 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     private static final String TAG = "GameFragment";
     @Bind(R.id.game_entry_pitch_count_value)
-    View pitchCount;
+    TextView pitchCount;
 
     @Bind(R.id.game_entry_strike_button)
     View strikeButton;
 
     @Bind(R.id.game_entry_strike_button_value)
-    View strikeCount;
+    TextView strikeCount;
 
     @Bind(R.id.game_entry_ball_button)
     View ballButton;
 
     @Bind(R.id.game_entry_ball_button_value)
-    View ballCount;
+    TextView ballCount;
 
     @Bind(R.id.game_entry_hit_button)
     View hitButton;
 
     @Bind(R.id.game_entry_hit_button_value)
-    View hitCount;
+    TextView hitCount;
 
     @Bind(R.id.game_entry_walk_button)
     View walkButton;
 
     @Bind(R.id.game_entry_walk_button_value)
-    View walkCount;
+    TextView walkCount;
 
     @Bind(R.id.game_entry_strikeout_button)
     View strikeoutButton;
 
     @Bind(R.id.game_entry_hit_strikeout_button_value)
-    View strikeoutCount;
+    TextView strikeoutCount;
 
     private String gameDate;
 
@@ -172,6 +174,16 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         String selectionArgs[] = null;
 
         switch (id) {
+            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
+                selection = null;
+                selectionArgs = new String[]{};
+                return new CursorLoader(
+                        getContext(), //context
+                        GameContentProvider.CONTENT_URI, //Uri
+                        GameContract.PROJECTION_ALL_COLUMNS, //projection aka columns
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
+                        null);
             case LoaderIdConstants.LOADER_ID_DOES_GAME_EXIST_FOR_DATE:
                 selection = GameContract.DATE + " = ?";
                 selectionArgs = new String[]{gameDate};
@@ -229,6 +241,9 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(GameContract.DATE, gameDate);
                     getContext().getContentResolver().insert(GameContentProvider.CONTENT_URI, contentValues);
+                } else {
+                    //Populate values on the six fields
+                    getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES, null, this);
                 }
                 break;
             case LoaderIdConstants.LOADER_ID_GET_CURRENT_STRIKE_COUNT:
@@ -243,7 +258,7 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                 int ballCountIndex = data.getColumnIndex(GameContract.BALLS);
                 data.moveToFirst();
                 int currentBallCount = data.getInt(ballCountIndex);
-                currentBallCount+=1;
+                currentBallCount += 1;
                 updateStatValueAsync(StatType.BALL, currentBallCount);
                 break;
             case LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT:
@@ -251,8 +266,19 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                 data.moveToFirst();
                 int totalPitchCount = data.getInt(totalPitchCountIndex);
                 System.out.println("totalPitchCount after update = " + totalPitchCount);
-                totalPitchCount+=1;
+                totalPitchCount += 1;
                 updateStatValueAsync(StatType.TOTAL_PITCHES, totalPitchCount);
+                break;
+            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
+                data.moveToFirst();
+                Game game = GameCursorUtil.buildGame(data);
+                //TODO -- Andrew -- update text of 6 fields
+                pitchCount.setText(String.valueOf(game.getPitches()));
+                strikeCount.setText(String.valueOf(game.getStrikes()));
+                ballCount.setText(String.valueOf(game.getBalls()));
+                walkCount.setText(String.valueOf(game.getWalks()));
+                hitCount.setText(String.valueOf(game.getHits()));
+                strikeoutCount.setText(String.valueOf(game.getStrikeouts()));
                 break;
         }
     }
@@ -264,14 +290,14 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onUpdateComplete(int token, Object cookie, int result) {
-        if(token == StatType.STRIKE.ordinal()){
+        if (token == StatType.STRIKE.ordinal()) {
             ((TextView) strikeCount).setText(String.valueOf(cookie));
             getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT, null, this);
-        } else if(token == StatType.BALL.ordinal()){
+        } else if (token == StatType.BALL.ordinal()) {
             ((TextView) ballCount).setText(String.valueOf(cookie));
             getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT, null, this);
-        } else if(token == StatType.TOTAL_PITCHES.ordinal()){
-            ((TextView)pitchCount).setText(String.valueOf(cookie));
+        } else if (token == StatType.TOTAL_PITCHES.ordinal()) {
+            ((TextView) pitchCount).setText(String.valueOf(cookie));
         }
     }
 }
