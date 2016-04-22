@@ -17,6 +17,5 @@ public final class LoaderIdConstants {
     public static final int LOADER_ID_GET_GAME_SUMMARIES = 10;
     public static final int LOADER_ID_GET_GAME_SUMMARY = 11;
 
-    public static final int LOADER_ID_SEASON_AVERAGE_STATS = 21;
-    public static final int LOADER_ID_SEASON_TOTAL_STATS = 22;
+    public static final int LOADER_ID_SEASON_AVERAGE_AND_TOTAL_STATS = 21;
 }

@@ -13,8 +13,10 @@ import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.activity.GameSummaryDetailActivity;
 import com.akodiakson.pitchcounter.activity.GameSummaryDetailFragment;
 import com.akodiakson.pitchcounter.adapter.viewholder.GameSummaryViewHolder;
+import com.akodiakson.pitchcounter.adapter.viewholder.SeasonAveragesViewHolder;
 import com.akodiakson.pitchcounter.adapter.viewholder.SeasonTotalsViewHolder;
 import com.akodiakson.pitchcounter.model.Game;
+import com.akodiakson.pitchcounter.model.SeasonStatsTO;
 import com.akodiakson.pitchcounter.model.SummaryItemTO;
 import com.akodiakson.pitchcounter.model.SummaryItemType;
 
@@ -51,6 +53,8 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 holder = new GameSummaryViewHolder(view);
                 break;
             case VIEW_TYPE_SEASON_AVERAGES:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_summaries_season_averages, parent, false);
+                holder = new SeasonAveragesViewHolder(view);
                 break;
             case VIEW_TYPE_SEASON_TOTALS:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_summaries_season_totals, parent, false);
@@ -68,12 +72,24 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 bindGameSummaryItem((GameSummaryViewHolder) holder, position);
                 break;
             case VIEW_TYPE_SEASON_AVERAGES:
-//                bindGameSummaryItem((GameSummaryViewHolder) holder, position);
+                bindAverages((SeasonAveragesViewHolder)holder, position);
                 break;
             case VIEW_TYPE_SEASON_TOTALS:
-//                bindGameSummaryItem((GameSummaryViewHolder) holder, position);
+                bindTotals((SeasonTotalsViewHolder)holder, position);
                 break;
         }
+    }
+
+    private void bindAverages(SeasonAveragesViewHolder holder, int position) {
+        SummaryItemTO summaryItemTO = mValues.get(position);
+        SeasonStatsTO data = (SeasonStatsTO) summaryItemTO.getData();
+        holder.getFirst().setText(String.valueOf(data.calculatePercentBalls()));
+        holder.getSecond().setText(String.valueOf(data.calculateAveragePitchesPerGame()));
+        holder.getThird().setText(String.valueOf(data.calculatePercentStrikes()));
+    }
+
+    private void bindTotals(SeasonTotalsViewHolder holder, int position) {
+
     }
 
     @Override

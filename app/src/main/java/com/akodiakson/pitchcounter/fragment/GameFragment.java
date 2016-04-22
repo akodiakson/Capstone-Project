@@ -218,7 +218,7 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         switch (loader.getId()) {
             case LoaderIdConstants.LOADER_ID_DOES_GAME_EXIST_FOR_DATE:
-                int countForDateIndex = data.getColumnIndex(GameContract.GAME_COUNT_FOR_DATE);
+                int countForDateIndex = data.getColumnIndex(GameContract.NUM_GAMES);
                 data.moveToFirst();
                 int numberOfGamesToday = data.getInt(countForDateIndex);
                 boolean doesGameExist = numberOfGamesToday > 0;

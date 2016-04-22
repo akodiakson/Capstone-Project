@@ -16,15 +16,28 @@ public final class GameContract {
     public static final String STRIKEOUTS = "strikeouts";
     public static final String WALKS = "walks";
 
-    public static final String GAME_COUNT_FOR_DATE = "gameCountForDate";
-    public static final String GAME_COUNT_FOR_DATE_SELECTION = "count(*) as gameCountForDate";
+    public static final String NUM_GAMES = "numGames";
+    public static final String NUM_GAMES_SELECTION = "count(*) as numGames";
 
     public static final String[] PROJECTION_ALL_COLUMNS = new String[]{
             _ID, DATE, PITCHES, STRIKES, BALLS, HITS, STRIKEOUTS, WALKS
     };
 
     public static final String[] PROJECTION_GAME_COUNT_FOR_DATE = new String[]{
-            GAME_COUNT_FOR_DATE_SELECTION
+            NUM_GAMES_SELECTION
+    };
+
+    public static final String SEASON_NUM_PITCHES = "seasonPitches";
+    public static final String SEASON_NUM_PITCHES_SELECTION = "sum(" + PITCHES + ") as seasonPitches";
+
+    public static final String SEASON_NUM_BALLS = "seasonBalls";
+    public static final String SEASON_NUM_BALLS_SELECTION = "sum(" + BALLS + ") as seasonBalls";
+
+    public static final String SEASON_NUM_STRIKES = "seasonStrikes";
+    public static final String SEASON_NUM_STRIKES_SELECTION = "sum(" + STRIKES + ") as seasonStrikes";
+
+    public static final String[] PROJECTION_SUMMARY_CALCULATIONS = new String[]{
+            NUM_GAMES_SELECTION, SEASON_NUM_PITCHES_SELECTION, SEASON_NUM_BALLS_SELECTION, SEASON_NUM_STRIKES_SELECTION
     };
 
     public static final String SQL_CREATE = "CREATE TABLE " +

@@ -20,6 +20,7 @@ import com.akodiakson.pitchcounter.data.GameContract;
 import com.akodiakson.pitchcounter.data.GameCursorUtil;
 import com.akodiakson.pitchcounter.data.LoaderIdConstants;
 import com.akodiakson.pitchcounter.model.Game;
+import com.akodiakson.pitchcounter.model.SeasonStatsTO;
 import com.akodiakson.pitchcounter.util.GameSummaryPopulator;
 
 import java.lang.ref.WeakReference;
@@ -42,12 +43,9 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
      */
     private boolean mTwoPane;
 
-    private List<Game> gameSummaries;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("GameSummaryListActivity.onCreate");
         setContentView(R.layout.activity_gamesummary_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -102,12 +100,14 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
         System.out.println("GameSummaryListActivity.onLoadFinished");
         switch (loader.getId()) {
             case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
-                gameSummaries = new ArrayList<>();
+                List<Game> gameSummaries = new ArrayList<>();
+                SeasonStatsTO seasonStatsTO = new SeasonStatsTO();
                 while(data.moveToNext()) {
                     Game game = GameCursorUtil.buildGame(data);
+                    seasonStatsTO.addGameStats(game);
                     gameSummaries.add(game);
                 }
-                setAdapterData();
+                setAdapterData(gameSummaries, seasonStatsTO);
                 break;
         }
     }
@@ -117,9 +117,11 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
 
     }
 
-    private void setAdapterData(){
+    private void setAdapterData(List<Game> gameSummaries, SeasonStatsTO seasonStats){
+        System.out.println("GameSummaryListActivity.setAdapterData");
+        System.out.println("seasonStats = " + seasonStats);
         View recyclerView = findViewById(R.id.gamesummary_list);
         assert recyclerView != null;
-        ((RecyclerView)recyclerView).setAdapter(new GameSummaryAdapter(GameSummaryPopulator.populate(gameSummaries), mTwoPane, new WeakReference<FragmentActivity>(this)));
+        ((RecyclerView)recyclerView).setAdapter(new GameSummaryAdapter(GameSummaryPopulator.populate(gameSummaries, seasonStats), mTwoPane, new WeakReference<FragmentActivity>(this)));
     }
 }

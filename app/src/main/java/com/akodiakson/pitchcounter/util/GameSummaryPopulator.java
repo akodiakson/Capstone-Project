@@ -1,6 +1,7 @@
 package com.akodiakson.pitchcounter.util;
 
 import com.akodiakson.pitchcounter.model.Game;
+import com.akodiakson.pitchcounter.model.SeasonStatsTO;
 import com.akodiakson.pitchcounter.model.SummaryItemTO;
 import com.akodiakson.pitchcounter.model.SummaryItemType;
 
@@ -12,8 +13,16 @@ import java.util.List;
  */
 public class GameSummaryPopulator {
 
-    public static List<SummaryItemTO> populate(List<Game> gameSummaries){
+    public static List<SummaryItemTO> populate(List<Game> gameSummaries, SeasonStatsTO seasonStats){
         List<SummaryItemTO> summaryViewItems = new ArrayList<>();
+
+        SummaryItemTO totalsItem = new SummaryItemTO(SummaryItemType.SEASON);
+        totalsItem.setData(seasonStats);
+        summaryViewItems.add(totalsItem);
+
+        SummaryItemTO averagesItem = new SummaryItemTO(SummaryItemType.AVERAGE);
+        averagesItem.setData(seasonStats);
+        summaryViewItems.add(averagesItem);
 
         for (Game gameSummary : gameSummaries) {
             SummaryItemTO object = new SummaryItemTO(SummaryItemType.GAME);
