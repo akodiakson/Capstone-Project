@@ -9,5 +9,7 @@
     <dimen name="app_bar_height">200dp</dimen>
     <dimen name="item_width">200dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="game_summary_row_min_height">56dp</dimen>
+    <dimen name="game_summary_row_date_left_margin">64dp</dimen>
 
 </resources>

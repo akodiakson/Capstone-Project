@@ -39,6 +39,10 @@ public class GameCursorUtil {
         int walks = data.getInt(walkIndex);
         game.setWalks(walks);
 
+        int pitchesIndex = data.getColumnIndex(GameContract.PITCHES);
+        int pitches = data.getInt(pitchesIndex);
+        game.setPitches(pitches);
+
         return game;
     }
 }

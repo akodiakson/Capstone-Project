@@ -250,6 +250,7 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                 int totalPitchCountIndex = data.getColumnIndex(GameContract.PITCHES);
                 data.moveToFirst();
                 int totalPitchCount = data.getInt(totalPitchCountIndex);
+                System.out.println("totalPitchCount after update = " + totalPitchCount);
                 totalPitchCount+=1;
                 updateStatValueAsync(StatType.TOTAL_PITCHES, totalPitchCount);
                 break;
