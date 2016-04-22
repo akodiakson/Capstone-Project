@@ -11,6 +11,7 @@
         android:id="@+id/game_summary_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/text_margin"
         android:layout_marginLeft="@dimen/text_margin"
         tools:text="@string/game_entry_numeric_default_value"
         android:textAppearance="?attr/textAppearanceListItem"
@@ -23,5 +24,6 @@
         android:layout_gravity="center_vertical"
         tools:text="@string/game_entry_numeric_default_value"
         android:layout_marginLeft="@dimen/game_summary_row_date_left_margin"
+        android:layout_marginStart="@dimen/game_summary_row_date_left_margin"
         android:textAppearance="?attr/textAppearanceListItem" />
 </FrameLayout>

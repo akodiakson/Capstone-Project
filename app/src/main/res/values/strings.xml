@@ -3,6 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="game_entry_numeric_default_value">0</string>
+    <string name="game_entry_numeric_default_label">Label</string>
+
     <string name="game_entry_pitch_count_label">Pitches</string>
 
     <string name="game_entry_strike_label">Strike</string>
@@ -10,6 +12,10 @@
     <string name="game_entry_hit_label">Hit</string>
     <string name="game_entry_walk_label">Walk</string>
     <string name="game_entry_strikeout_label">Strikeout</string>
+
+    <string name="summaries_hit_label">Hits</string>
+    <string name="summaries_walk_label">Walks</string>
+    <string name="summaries_strikeout_label">Strikeouts</string>
 
     <string name="game_entry_history_menu_item">History</string>
     <string name="title_gamesummary_list">GameSummaries</string>

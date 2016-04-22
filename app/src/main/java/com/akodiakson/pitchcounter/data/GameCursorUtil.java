@@ -9,7 +9,6 @@ import com.akodiakson.pitchcounter.model.Game;
  */
 public class GameCursorUtil {
     public static Game buildGame(Cursor data){
-        System.out.println("GameCursorUtil.buildGame");
         if(data == null || data.getCount() <= 0){
             return null;
         }

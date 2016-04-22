@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/summary_vertical_padding"
+    android:paddingBottom="@dimen/summary_vertical_padding">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/season_totals_hits"
+            style="@style/SeasonTotalsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/game_entry_numeric_default_value" />
+
+        <TextView
+            style="@style/SeasonTotalsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summaries_hit_label" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/season_totals_strikeouts"
+            style="@style/SeasonTotalsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/game_entry_numeric_default_value" />
+
+        <TextView
+            style="@style/SeasonTotalsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summaries_strikeout_label" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/season_totals_walks"
+            style="@style/SeasonTotalsValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/game_entry_numeric_default_value" />
+
+        <TextView
+            style="@style/SeasonTotalsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/summaries_walk_label" />
+
+    </LinearLayout>
+
+</LinearLayout>

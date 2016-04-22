@@ -29,6 +29,13 @@
 
     </style>
 
+    <style name="SeasonTotalsValue" parent="TextAppearance.AppCompat.Headline">
+
+    </style>
+    <style name="SeasonTotalsLabel" parent="TextAppearance.AppCompat.Body1">
+
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

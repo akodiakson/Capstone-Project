@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -13,13 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.akodiakson.pitchcounter.R;
-import com.akodiakson.pitchcounter.adapter.SimpleItemRecyclerViewAdapter;
+import com.akodiakson.pitchcounter.adapter.GameSummaryAdapter;
 import com.akodiakson.pitchcounter.data.GameContentProvider;
 import com.akodiakson.pitchcounter.data.GameContract;
 import com.akodiakson.pitchcounter.data.GameCursorUtil;
 import com.akodiakson.pitchcounter.data.LoaderIdConstants;
 import com.akodiakson.pitchcounter.model.Game;
+import com.akodiakson.pitchcounter.util.GameSummaryPopulator;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
      */
     private boolean mTwoPane;
 
-    private List<Game> adapterDataSet;
+    private List<Game> gameSummaries;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,20 +83,14 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        System.out.println("GameSummaryListActivity.onCreateLoader");
-        String selection = null;
-        String selectionArgs[] = null;
-
         switch (id) {
             case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
-                selection = null;
-                selectionArgs = new String[]{};
                 return new CursorLoader(
                         this, //context
                         GameContentProvider.CONTENT_URI, //Uri
                         GameContract.PROJECTION_ALL_COLUMNS, //projection aka columns
-                        selection, //selection
-                        selectionArgs, //selectionArgs
+                        null, //selection
+                        new String[]{}, //selectionArgs
                         GameContract.DATE + " DESC");
         }
 
@@ -105,20 +102,12 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
         System.out.println("GameSummaryListActivity.onLoadFinished");
         switch (loader.getId()) {
             case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
-                adapterDataSet = new ArrayList<>();
-                System.out.println("GameSummaryListActivity.myCase");
-
-                System.out.println("data.getCount() = " + data.getCount());
-//                data.moveToFirst();
-//                data.moveToPosition(0);
-//                for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()){
+                gameSummaries = new ArrayList<>();
                 while(data.moveToNext()) {
                     Game game = GameCursorUtil.buildGame(data);
-                    adapterDataSet.add(game);
+                    gameSummaries.add(game);
                 }
-//                }
                 setAdapterData();
-
                 break;
         }
     }
@@ -129,10 +118,8 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
     }
 
     private void setAdapterData(){
-        System.out.println("GameSummaryListActivity.setAdapterData");
-        System.out.println("adapterDataSet = " + adapterDataSet);
         View recyclerView = findViewById(R.id.gamesummary_list);
         assert recyclerView != null;
-        ((RecyclerView)recyclerView).setAdapter(new SimpleItemRecyclerViewAdapter(adapterDataSet));
+        ((RecyclerView)recyclerView).setAdapter(new GameSummaryAdapter(GameSummaryPopulator.populate(gameSummaries), mTwoPane, new WeakReference<FragmentActivity>(this)));
     }
 }

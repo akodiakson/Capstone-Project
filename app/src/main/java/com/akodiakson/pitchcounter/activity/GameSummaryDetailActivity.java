@@ -19,6 +19,8 @@ import com.akodiakson.pitchcounter.R;
  * item details are presented side-by-side with a list of items
  * in a {@link GameSummaryListActivity}.
  */
+//TODO -- 1. Initialize calls to get average stats
+//TODO -- 2. Initialize calls to get season stats
 public class GameSummaryDetailActivity extends AppCompatActivity {
 
     @Override
@@ -56,8 +58,8 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(GameSummaryDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(GameSummaryDetailFragment.ARG_ITEM_ID));
+            arguments.putSerializable(GameSummaryDetailFragment.ARG_ITEM_ID,
+                    getIntent().getSerializableExtra(GameSummaryDetailFragment.ARG_ITEM_ID));
             GameSummaryDetailFragment fragment = new GameSummaryDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

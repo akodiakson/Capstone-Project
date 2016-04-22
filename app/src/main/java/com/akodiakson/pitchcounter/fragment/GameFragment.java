@@ -40,45 +40,32 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
+//TODO -- 1. If there are zero pitches for the current game, then don't show it in the summary list
+//TODO -- 2. Format dates displayed
+//TODO -- 3. Consider displays not based on the database for faster updates
+//TODO -- 4. Transition to summary list
 public class GameFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, UpdateStatQueryHandler.UpdateStatQueryListener {
 
     private static final String TAG = "GameFragment";
     @Bind(R.id.game_entry_pitch_count_value)
     TextView pitchCount;
 
-    @Bind(R.id.game_entry_strike_button)
-    View strikeButton;
-
     @Bind(R.id.game_entry_strike_button_value)
     TextView strikeCount;
-
-    @Bind(R.id.game_entry_ball_button)
-    View ballButton;
 
     @Bind(R.id.game_entry_ball_button_value)
     TextView ballCount;
 
-    @Bind(R.id.game_entry_hit_button)
-    View hitButton;
-
     @Bind(R.id.game_entry_hit_button_value)
     TextView hitCount;
 
-    @Bind(R.id.game_entry_walk_button)
-    View walkButton;
-
     @Bind(R.id.game_entry_walk_button_value)
     TextView walkCount;
-
-    @Bind(R.id.game_entry_strikeout_button)
-    View strikeoutButton;
 
     @Bind(R.id.game_entry_hit_strikeout_button_value)
     TextView strikeoutCount;
 
     private String gameDate;
-
-//    private int strikeCountValue = 0;
 
     public GameFragment() {
     }
@@ -135,16 +122,11 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_STRIKE_COUNT, null, this);
     }
 
-    private void updateStatValueAsync(StatType statType, int newValue) {
-        UpdateStatQueryHandler handler = new UpdateStatQueryHandler(getContext().getContentResolver(), new WeakReference<UpdateStatQueryHandler.UpdateStatQueryListener>(this));
+    private void updateStatAndTotalPitchValues(StatType statType, int newValue, int newTotalPitches) {
         ContentValues contentValues = new ContentValues();
-        System.out.println("newValue = " + newValue);
         contentValues.put(statType.getAssociatedStatColumn(), newValue);
-        String where = GameContract.DATE + " = ?";
-        String[] selectionArgs = new String[]{gameDate};
-        ContentResolver contentResolver = getContext().getContentResolver();
-        contentResolver.update(GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
-        handler.startUpdate(statType.ordinal(), newValue, GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
+        contentValues.put(GameContract.PITCHES, newTotalPitches);
+        updateStatValue(statType, contentValues);
     }
 
     @OnClick(R.id.game_entry_ball_button)
@@ -154,29 +136,24 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @OnClick(R.id.game_entry_hit_button)
     public void hitTapped(View buttonView) {
-
+        getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_HIT_COUNT, null, this);
     }
 
     @OnClick(R.id.game_entry_walk_button)
     public void walkTapped(View buttonView) {
-
+        getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_WALK_COUNT, null, this);
     }
 
     @OnClick(R.id.game_entry_strikeout_button)
     public void strikeoutTapped(View buttonView) {
-
+        getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_STRIKEOUT_COUNT, null, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 
-        String selection = null;
-        String selectionArgs[] = null;
-
         switch (id) {
-            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
-                selection = null;
-                selectionArgs = new String[]{};
+            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARY:
                 return new CursorLoader(
                         getContext(), //context
                         GameContentProvider.CONTENT_URI, //Uri
@@ -185,44 +162,52 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                         new String[]{gameDate}, //selectionArgs
                         null);
             case LoaderIdConstants.LOADER_ID_DOES_GAME_EXIST_FOR_DATE:
-                selection = GameContract.DATE + " = ?";
-                selectionArgs = new String[]{gameDate};
                 return new CursorLoader(
                         getContext(), //context
                         GameContentProvider.CONTENT_URI, //Uri
                         GameContract.PROJECTION_GAME_COUNT_FOR_DATE, //projection aka columns
-                        selection, //selection
-                        selectionArgs, //selectionArgs
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
                         null);
             case LoaderIdConstants.LOADER_ID_GET_CURRENT_STRIKE_COUNT:
-                selection = GameContract.DATE + " = ?";
-                selectionArgs = new String[]{gameDate};
                 return new CursorLoader(
                         getContext(),
                         GameContentProvider.CONTENT_URI,
-                        new String[]{GameContract.STRIKES},
-                        selection,
-                        selectionArgs,
+                        new String[]{GameContract.STRIKES, GameContract.PITCHES},
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
                         null);
             case LoaderIdConstants.LOADER_ID_GET_CURRENT_BALL_COUNT:
-                selection = GameContract.DATE + " = ?";
-                selectionArgs = new String[]{gameDate};
                 return new CursorLoader(
                         getContext(),
                         GameContentProvider.CONTENT_URI,
-                        new String[]{GameContract.BALLS},
-                        selection,
-                        selectionArgs,
+                        new String[]{GameContract.BALLS, GameContract.PITCHES},
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
                         null);
-            case LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT:
-                selection = GameContract.DATE + " = ?";
-                selectionArgs = new String[]{gameDate};
+            case LoaderIdConstants.LOADER_ID_GET_HIT_COUNT:
                 return new CursorLoader(
                         getContext(),
                         GameContentProvider.CONTENT_URI,
-                        new String[]{GameContract.PITCHES},
-                        selection,
-                        selectionArgs,
+                        new String[]{GameContract.HITS},
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
+                        null);
+            case LoaderIdConstants.LOADER_ID_GET_WALK_COUNT:
+                return new CursorLoader(
+                        getContext(),
+                        GameContentProvider.CONTENT_URI,
+                        new String[]{GameContract.WALKS},
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
+                        null);
+            case LoaderIdConstants.LOADER_ID_GET_STRIKEOUT_COUNT:
+                return new CursorLoader(
+                        getContext(),
+                        GameContentProvider.CONTENT_URI,
+                        new String[]{GameContract.STRIKEOUTS},
+                        GameContract.DATE + " = ?", //selection
+                        new String[]{gameDate}, //selectionArgs
                         null);
 
         }
@@ -243,44 +228,60 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                     getContext().getContentResolver().insert(GameContentProvider.CONTENT_URI, contentValues);
                 } else {
                     //Populate values on the six fields
-                    getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES, null, this);
+                    getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARY, null, this);
                 }
                 break;
             case LoaderIdConstants.LOADER_ID_GET_CURRENT_STRIKE_COUNT:
-                int strikeCountIndex = data.getColumnIndex(GameContract.STRIKES);
                 data.moveToFirst();
-
-                int currentStrikeCount = data.getInt(strikeCountIndex);
-                int updatedCount = currentStrikeCount + 1;
-                updateStatValueAsync(StatType.STRIKE, updatedCount);
+                int currentStrikeCount = data.getInt(data.getColumnIndex(GameContract.STRIKES));
+                int updatedStrikeCount = currentStrikeCount + 1;
+                int currentPitchCount = data.getInt(data.getColumnIndex(GameContract.PITCHES));
+                int updatedPitchCount = currentPitchCount + 1;
+                updateStatAndTotalPitchValues(StatType.STRIKE, updatedStrikeCount, updatedPitchCount);
                 break;
             case LoaderIdConstants.LOADER_ID_GET_CURRENT_BALL_COUNT:
-                int ballCountIndex = data.getColumnIndex(GameContract.BALLS);
                 data.moveToFirst();
-                int currentBallCount = data.getInt(ballCountIndex);
+                int currentBallCount = data.getInt(data.getColumnIndex(GameContract.BALLS));
+                int currentTotalPitches = data.getInt(data.getColumnIndex(GameContract.PITCHES));
                 currentBallCount += 1;
-                updateStatValueAsync(StatType.BALL, currentBallCount);
+                currentTotalPitches += 1;
+                updateStatAndTotalPitchValues(StatType.BALL, currentBallCount, currentTotalPitches);
                 break;
-            case LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT:
-                int totalPitchCountIndex = data.getColumnIndex(GameContract.PITCHES);
+            case LoaderIdConstants.LOADER_ID_GET_HIT_COUNT:
                 data.moveToFirst();
-                int totalPitchCount = data.getInt(totalPitchCountIndex);
-                System.out.println("totalPitchCount after update = " + totalPitchCount);
-                totalPitchCount += 1;
-                updateStatValueAsync(StatType.TOTAL_PITCHES, totalPitchCount);
+                int hitCount = data.getInt(data.getColumnIndex(GameContract.HITS));
+                hitCount += 1;
+                updateStatValue(StatType.HIT, hitCount);
                 break;
-            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
+            case LoaderIdConstants.LOADER_ID_GET_WALK_COUNT:
+                data.moveToFirst();
+                int walkCount = data.getInt(data.getColumnIndex(GameContract.WALKS));
+                walkCount += 1;
+                updateStatValue(StatType.WALK, walkCount);
+                break;
+            case LoaderIdConstants.LOADER_ID_GET_STRIKEOUT_COUNT:
+                data.moveToFirst();
+                int strikeoutCount = data.getInt(data.getColumnIndex(GameContract.STRIKEOUTS));
+                strikeoutCount += 1;
+                updateStatValue(StatType.STRIKEOUT, strikeoutCount);
+                break;
+            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARY:
                 data.moveToFirst();
                 Game game = GameCursorUtil.buildGame(data);
-                //TODO -- Andrew -- update text of 6 fields
-                pitchCount.setText(String.valueOf(game.getPitches()));
-                strikeCount.setText(String.valueOf(game.getStrikes()));
-                ballCount.setText(String.valueOf(game.getBalls()));
-                walkCount.setText(String.valueOf(game.getWalks()));
-                hitCount.setText(String.valueOf(game.getHits()));
-                strikeoutCount.setText(String.valueOf(game.getStrikeouts()));
+                updateCounts(game);
                 break;
         }
+    }
+
+
+
+    private void updateCounts(Game game) {
+        pitchCount.setText(String.valueOf(game.getPitches()));
+        strikeCount.setText(String.valueOf(game.getStrikes()));
+        ballCount.setText(String.valueOf(game.getBalls()));
+        walkCount.setText(String.valueOf(game.getWalks()));
+        hitCount.setText(String.valueOf(game.getHits()));
+        strikeoutCount.setText(String.valueOf(game.getStrikeouts()));
     }
 
     @Override
@@ -290,14 +291,24 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @Override
     public void onUpdateComplete(int token, Object cookie, int result) {
-        if (token == StatType.STRIKE.ordinal()) {
-            ((TextView) strikeCount).setText(String.valueOf(cookie));
-            getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT, null, this);
-        } else if (token == StatType.BALL.ordinal()) {
-            ((TextView) ballCount).setText(String.valueOf(cookie));
-            getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_TOTAL_PITCH_COUNT, null, this);
-        } else if (token == StatType.TOTAL_PITCHES.ordinal()) {
-            ((TextView) pitchCount).setText(String.valueOf(cookie));
+        //When you're done, query to update the count TextViews
+        if (token != StatType.TOTAL_PITCHES.ordinal()) {
+            getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARY, null, this);
         }
+    }
+
+    private void updateStatValue(StatType statType, int newValue) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(statType.getAssociatedStatColumn(), newValue);
+        updateStatValue(statType, contentValues);
+    }
+
+    private void updateStatValue(StatType statType, ContentValues contentValues) {
+        String where = GameContract.DATE + " = ?";
+        String[] selectionArgs = new String[]{gameDate};
+        ContentResolver contentResolver = getContext().getContentResolver();
+        contentResolver.update(GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
+        UpdateStatQueryHandler handler = new UpdateStatQueryHandler(getContext().getContentResolver(), new WeakReference<UpdateStatQueryHandler.UpdateStatQueryListener>(this));
+        handler.startUpdate(statType.ordinal(), -1, GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
     }
 }
