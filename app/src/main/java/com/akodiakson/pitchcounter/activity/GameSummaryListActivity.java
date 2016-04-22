@@ -1,24 +1,26 @@
 package com.akodiakson.pitchcounter.activity;
 
-import android.content.Context;
-import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.akodiakson.pitchcounter.R;
+import com.akodiakson.pitchcounter.adapter.SimpleItemRecyclerViewAdapter;
+import com.akodiakson.pitchcounter.data.GameContentProvider;
+import com.akodiakson.pitchcounter.data.GameContract;
+import com.akodiakson.pitchcounter.data.GameCursorUtil;
+import com.akodiakson.pitchcounter.data.LoaderIdConstants;
+import com.akodiakson.pitchcounter.model.Game;
 
-import com.akodiakson.pitchcounter.activity.dummy.DummyContent;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ import java.util.List;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class GameSummaryListActivity extends AppCompatActivity {
+public class GameSummaryListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -37,9 +39,12 @@ public class GameSummaryListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
+    private List<Game> adapterDataSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("GameSummaryListActivity.onCreate");
         setContentView(R.layout.activity_gamesummary_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -50,7 +55,7 @@ public class GameSummaryListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               finish();
+                finish();
             }
         });
 
@@ -65,78 +70,69 @@ public class GameSummaryListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+
+        getSupportLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES, null, this);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(null);
     }
 
-    public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        System.out.println("GameSummaryListActivity.onCreateLoader");
+        String selection = null;
+        String selectionArgs[] = null;
 
-        private final List<DummyContent.DummyItem> mValues;
-
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
-            mValues = items;
+        switch (id) {
+            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
+                selection = null;
+                selectionArgs = new String[]{};
+                return new CursorLoader(
+                        this, //context
+                        GameContentProvider.CONTENT_URI, //Uri
+                        GameContract.PROJECTION_ALL_COLUMNS, //projection aka columns
+                        selection, //selection
+                        selectionArgs, //selectionArgs
+                        GameContract.DATE + " DESC");
         }
 
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.gamesummary_list_content, parent, false);
-            return new ViewHolder(view);
-        }
+        return null;
+    }
 
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
-            holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        System.out.println("GameSummaryListActivity.onLoadFinished");
+        switch (loader.getId()) {
+            case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
+                adapterDataSet = new ArrayList<>();
+                System.out.println("GameSummaryListActivity.myCase");
 
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mTwoPane) {
-                        Bundle arguments = new Bundle();
-                        arguments.putString(GameSummaryDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-                        GameSummaryDetailFragment fragment = new GameSummaryDetailFragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.gamesummary_detail_container, fragment)
-                                .commit();
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, GameSummaryDetailActivity.class);
-                        intent.putExtra(GameSummaryDetailFragment.ARG_ITEM_ID, holder.mItem.id);
-
-                        context.startActivity(intent);
-                    }
+                System.out.println("data.getCount() = " + data.getCount());
+//                data.moveToFirst();
+//                data.moveToPosition(0);
+//                for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()){
+                while(data.moveToNext()) {
+                    Game game = GameCursorUtil.buildGame(data);
+                    adapterDataSet.add(game);
                 }
-            });
+//                }
+                setAdapterData();
+
+                break;
         }
+    }
 
-        @Override
-        public int getItemCount() {
-            return mValues.size();
-        }
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+    }
 
-            public ViewHolder(View view) {
-                super(view);
-                mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
-            }
-        }
+    private void setAdapterData(){
+        System.out.println("GameSummaryListActivity.setAdapterData");
+        System.out.println("adapterDataSet = " + adapterDataSet);
+        View recyclerView = findViewById(R.id.gamesummary_list);
+        assert recyclerView != null;
+        ((RecyclerView)recyclerView).setAdapter(new SimpleItemRecyclerViewAdapter(adapterDataSet));
     }
 }

@@ -5,5 +5,6 @@
     <color name="colorAccent">#03A9F4</color>
     <color name="appWindowBackground">#C8E6C9</color>
     <color name="game_entry_card_color">#FFFFFF</color>
+    <color name="white">#ffffff</color>
 
 </resources>
