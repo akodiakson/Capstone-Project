@@ -89,7 +89,11 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private void bindTotals(SeasonTotalsViewHolder holder, int position) {
-
+        SummaryItemTO summaryItemTO = mValues.get(position);
+        SeasonStatsTO data = (SeasonStatsTO) summaryItemTO.getData();
+        holder.getHitsTotal().setText(String.valueOf(data.getTotalHits()));
+        holder.getStrikeoutsTotal().setText(String.valueOf(data.getTotalStrikeouts()));
+        holder.getWalksTotal().setText(String.valueOf(data.getTotalWalks()));
     }
 
     @Override
