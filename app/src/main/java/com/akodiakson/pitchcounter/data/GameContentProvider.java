@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
@@ -66,7 +65,11 @@ public class GameContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        int rowsUpdated = gameDbHelper.getWritableDatabase().update(GameContract.TABLE_NAME, values, selection, selectionArgs);
+        int rowsUpdated = gameDbHelper.getWritableDatabase().update(
+                GameContract.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
         Log.i(TAG, "update: rowsUpdated: " + rowsUpdated);
         return rowsUpdated;
     }
