@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     android:orientation="horizontal"
-    android:paddingTop="@dimen/summary_vertical_padding"
-    android:paddingBottom="@dimen/summary_vertical_padding">
+    android:paddingBottom="@dimen/summary_averages_vertical_padding"
+    android:paddingTop="@dimen/summary_averages_vertical_padding">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -19,21 +19,24 @@
             style="@style/SeasonTotalsValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/hits_label"
+            android:layout_toStartOf="@+id/hits_label"
             tools:text="@string/game_entry_numeric_default_value" />
 
         <TextView
+            android:id="@+id/hits_label"
             style="@style/SeasonTotalsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/summaries_hit_label" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -41,21 +44,24 @@
             style="@style/SeasonTotalsValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/strikeouts_label"
+            android:layout_toStartOf="@+id/strikeouts_label"
             tools:text="@string/game_entry_numeric_default_value" />
 
         <TextView
+            android:id="@+id/strikeouts_label"
             style="@style/SeasonTotalsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/summaries_strikeout_label" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
         android:orientation="vertical">
 
         <TextView
@@ -63,14 +69,18 @@
             style="@style/SeasonTotalsValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/walks_label"
+            android:layout_toStartOf="@+id/walks_label"
             tools:text="@string/game_entry_numeric_default_value" />
 
         <TextView
+            android:id="@+id/walks_label"
             style="@style/SeasonTotalsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/summaries_walk_label" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

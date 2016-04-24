@@ -21,6 +21,7 @@ import com.akodiakson.pitchcounter.model.SummaryItemTO;
 import com.akodiakson.pitchcounter.model.SummaryItemType;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -83,9 +84,9 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private void bindAverages(SeasonAveragesViewHolder holder, int position) {
         SummaryItemTO summaryItemTO = mValues.get(position);
         SeasonStatsTO data = (SeasonStatsTO) summaryItemTO.getData();
-        holder.getFirst().setText(String.valueOf(data.calculatePercentBalls()));
+        holder.getFirst().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentBalls()));
         holder.getSecond().setText(String.valueOf(data.calculateAveragePitchesPerGame()));
-        holder.getThird().setText(String.valueOf(data.calculatePercentStrikes()));
+        holder.getThird().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentStrikes()));
     }
 
     private void bindTotals(SeasonTotalsViewHolder holder, int position) {

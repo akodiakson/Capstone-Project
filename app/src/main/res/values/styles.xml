@@ -24,18 +24,40 @@
     <style name="ButtonLabelTextStyle" parent="TextAppearance.AppCompat.Widget.Button">
 
     </style>
+    <style name="ButtonValueTextStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+    </style>
 
     <style name="PitchCountHeroTextStyle" parent="TextAppearance.AppCompat.Display4">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="SeasonTotalsValue" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingEnd">2dp</item>
+        <item name="android:textColor">@color/appWindowBackground</item>
+    </style>
+    <style name="SeasonAveragesValue" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingEnd">2dp</item>
+    </style>
+    <style name="SeasonAveragesCenterValue" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingEnd">2dp</item>
+    </style>
+
+    <style name="SeasonTotalsLabel" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/appWindowBackground</item>
 
     </style>
 
-    <style name="SeasonTotalsValue" parent="TextAppearance.AppCompat.Headline">
+    <style name="SeasonAveragesLabel" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textAllCaps">true</item>
 
     </style>
-    <style name="SeasonTotalsLabel" parent="TextAppearance.AppCompat.Body1">
-
-    </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

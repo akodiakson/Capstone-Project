@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#388E3C</color>
-    <color name="colorPrimaryDark">#4CAF50</color>
+    <color name="colorPrimary">#4CAF50</color>
+    <color name="colorPrimaryDark">#388E3C</color>
     <color name="colorAccent">#03A9F4</color>
     <color name="appWindowBackground">#C8E6C9</color>
     <color name="game_entry_card_color">#FFFFFF</color>

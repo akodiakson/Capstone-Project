@@ -18,9 +18,10 @@
     <string name="summaries_strikeout_label">Strikeouts</string>
 
     <string name="game_entry_history_menu_item">History</string>
-    <string name="title_gamesummary_list">GameSummaries</string>
+    <string name="title_gamesummary_list">Stats</string>
     <string name="title_gamesummary_detail">GameSummary Detail</string>
-    <string name="averages_balls_label">% Balls</string>
+    <string name="averages_balls_label">Balls</string>
     <string name="averages_pitches_per_game">Pitches Per Game</string>
-    <string name="averages_strikes_label">% Strikes</string>
+    <string name="averages_strikes_label">Strikes</string>
+    <string name="game_entry_undo_menu_item">Undo</string>
 </resources>

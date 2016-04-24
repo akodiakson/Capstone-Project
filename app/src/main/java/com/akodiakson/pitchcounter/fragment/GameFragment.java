@@ -32,6 +32,7 @@ import com.akodiakson.pitchcounter.model.Game;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Stack;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,6 +41,7 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
+//TODO -- 0. When undoing, undo numbers from the total correctly
 //TODO -- 1. If there are zero pitches for the current game, then don't show it in the summary list
 //TODO -- 2. Format dates displayed
 //TODO -- 3. Consider displays not based on the database for faster updates
@@ -66,6 +68,8 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     TextView strikeoutCount;
 
     private String gameDate;
+
+    private Stack<StatType> userActionsStack = new Stack<>();
 
     public GameFragment() {
     }
@@ -107,8 +111,33 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
             startActivity(intent);
             return true;
         }
+        if (item.getItemId() == R.id.menu_item_history_undo) {
+            if (!userActionsStack.isEmpty()) {
+                updateStatValue(userActionsStack.peek(), getValueFromFieldToPop(userActionsStack.peek())-1);
+                userActionsStack.pop();
+            }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private int getValueFromFieldToPop(StatType statTypeToPop) {
+        switch (statTypeToPop) {
+
+            case STRIKE:
+                return Integer.valueOf(strikeCount.getText().toString());
+            case BALL:
+                return Integer.valueOf(ballCount.getText().toString());
+            case HIT:
+                return Integer.valueOf(hitCount.getText().toString());
+            case WALK:
+                return Integer.valueOf(walkCount.getText().toString());
+            case STRIKEOUT:
+                return Integer.valueOf(strikeoutCount.getText().toString());
+
+        }
+        return 0;
     }
 
     @Override
@@ -119,6 +148,7 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @OnClick(R.id.game_entry_strike_button)
     public void strikeTapped(View buttonView) {
+        userActionsStack.push(StatType.STRIKE);
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_STRIKE_COUNT, null, this);
     }
 
@@ -131,21 +161,25 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     @OnClick(R.id.game_entry_ball_button)
     public void ballTapped(View buttonView) {
+        userActionsStack.push(StatType.BALL);
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_CURRENT_BALL_COUNT, null, this);
     }
 
     @OnClick(R.id.game_entry_hit_button)
     public void hitTapped(View buttonView) {
+        userActionsStack.push(StatType.HIT);
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_HIT_COUNT, null, this);
     }
 
     @OnClick(R.id.game_entry_walk_button)
     public void walkTapped(View buttonView) {
+        userActionsStack.push(StatType.WALK);
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_WALK_COUNT, null, this);
     }
 
     @OnClick(R.id.game_entry_strikeout_button)
     public void strikeoutTapped(View buttonView) {
+        userActionsStack.push(StatType.STRIKEOUT);
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_STRIKEOUT_COUNT, null, this);
     }
 
@@ -272,8 +306,6 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                 break;
         }
     }
-
-
 
     private void updateCounts(Game game) {
         pitchCount.setText(String.valueOf(game.getPitches()));

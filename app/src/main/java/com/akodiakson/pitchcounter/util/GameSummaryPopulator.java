@@ -16,13 +16,14 @@ public class GameSummaryPopulator {
     public static List<SummaryItemTO> populate(List<Game> gameSummaries, SeasonStatsTO seasonStats){
         List<SummaryItemTO> summaryViewItems = new ArrayList<>();
 
+        SummaryItemTO averagesItem = new SummaryItemTO(SummaryItemType.AVERAGE);
+        averagesItem.setData(seasonStats);
+        summaryViewItems.add(averagesItem);
+
         SummaryItemTO totalsItem = new SummaryItemTO(SummaryItemType.SEASON);
         totalsItem.setData(seasonStats);
         summaryViewItems.add(totalsItem);
 
-        SummaryItemTO averagesItem = new SummaryItemTO(SummaryItemType.AVERAGE);
-        averagesItem.setData(seasonStats);
-        summaryViewItems.add(averagesItem);
 
         for (Game gameSummary : gameSummaries) {
             SummaryItemTO object = new SummaryItemTO(SummaryItemType.GAME);
