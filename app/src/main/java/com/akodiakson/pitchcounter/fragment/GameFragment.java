@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akodiakson.pitchcounter.R;
@@ -30,6 +31,7 @@ import com.akodiakson.pitchcounter.data.UpdateStatQueryHandler;
 import com.akodiakson.pitchcounter.model.Game;
 
 import java.lang.ref.WeakReference;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Stack;
@@ -67,6 +69,12 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     @Bind(R.id.game_entry_hit_strikeout_button_value)
     TextView strikeoutCount;
 
+    @Bind(R.id.bar_balls)
+    View barBalls;
+
+    @Bind(R.id.bar_strikes)
+    View barStrikes;
+
     private String gameDate;
 
     private Stack<StatType> userActionsStack = new Stack<>();
@@ -90,6 +98,13 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
         Date today = new Date();
         gameDate = new SimpleDateFormat("yyyyMMdd").format(today);
+        try {
+            Date yyyyMMdd = new SimpleDateFormat("yyyyMMdd").parse(gameDate);
+            System.out.println("yyyyMMdd = " + yyyyMMdd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -113,7 +128,12 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         }
         if (item.getItemId() == R.id.menu_item_history_undo) {
             if (!userActionsStack.isEmpty()) {
-                updateStatValue(userActionsStack.peek(), getValueFromFieldToPop(userActionsStack.peek())-1);
+                StatType peekedStatType = userActionsStack.peek();
+                if(peekedStatType == StatType.BALL || peekedStatType == StatType.STRIKE){
+                    updateStatAndTotalPitchValues(peekedStatType, getValueFromFieldToPop(peekedStatType)-1, Integer.valueOf(pitchCount.getText().toString())-1);
+                } else {
+                    updateStatValue(peekedStatType, getValueFromFieldToPop(peekedStatType)-1);
+                }
                 userActionsStack.pop();
             }
             return true;
@@ -303,8 +323,16 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                 data.moveToFirst();
                 Game game = GameCursorUtil.buildGame(data);
                 updateCounts(game);
+                updatePitchDistribution(game);
                 break;
         }
+    }
+
+    private void updatePitchDistribution(Game game) {
+        LinearLayout.LayoutParams ballLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, game.getBalls());
+        barBalls.setLayoutParams(ballLayoutParams);
+        LinearLayout.LayoutParams strikeLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, game.getStrikes());
+        barStrikes.setLayoutParams(strikeLayoutParams);
     }
 
     private void updateCounts(Game game) {

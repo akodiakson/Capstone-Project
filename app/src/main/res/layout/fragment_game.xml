@@ -39,8 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:minHeight="@dimen/button_container_min_height"
-        android:elevation="@dimen/button_container_elevation_top">
+        android:elevation="@dimen/button_container_elevation_top"
+        android:minHeight="@dimen/button_container_min_height">
 
         <LinearLayout
             android:id="@+id/game_entry_hit_button"
@@ -51,8 +51,8 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/ButtonValueTextStyle"
                 android:id="@+id/game_entry_hit_button_value"
+                style="@style/ButtonValueTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/game_entry_numeric_default_value" />
@@ -74,8 +74,8 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/ButtonValueTextStyle"
                 android:id="@+id/game_entry_walk_button_value"
+                style="@style/ButtonValueTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/game_entry_numeric_default_value" />
@@ -97,8 +97,8 @@
             android:orientation="horizontal">
 
             <TextView
-                style="@style/ButtonValueTextStyle"
                 android:id="@+id/game_entry_hit_strikeout_button_value"
+                style="@style/ButtonValueTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/game_entry_numeric_default_value" />
@@ -112,73 +112,102 @@
         </LinearLayout>
     </FrameLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/bottom_container_height"
         android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
+        android:orientation="vertical"
         android:background="@color/white"
         android:elevation="@dimen/button_container_elevation_bottom"
         >
 
-        <RelativeLayout
-            android:id="@+id/game_entry_ball_button"
-            style="@style/ButtonContainerStyleSecondary"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/game_entry_ball_button_value"
-                style="@style/ButtonValueTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toStartOf="@+id/game_entry_ball_button_label"
-                android:layout_toLeftOf="@+id/game_entry_ball_button_label"
-                android:text="@string/game_entry_numeric_default_value" />
+            <View
+                android:id="@+id/bar_balls"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:background="@color/appWindowBackground" />
 
-            <TextView
-                android:id="@+id/game_entry_ball_button_label"
-                style="@style/ButtonLabelTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/game_entry_ball_label" />
-        </RelativeLayout>
+            <View
+                android:id="@+id/bar_strikes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:background="@color/colorPrimary" />
+        </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/game_entry_strike_button"
-            style="@style/ButtonContainerStyleSecondary"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|end"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/bottom_container_height"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/game_entry_strike_button_value"
-                style="@style/ButtonValueTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toStartOf="@+id/game_entry_strike_button_label"
-                android:layout_toLeftOf="@+id/game_entry_strike_button_label"
-                android:text="@string/game_entry_numeric_default_value" />
+            <RelativeLayout
+                android:id="@+id/game_entry_ball_button"
+                style="@style/ButtonContainerStyleSecondary"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/game_entry_strike_button_label"
-                style="@style/ButtonLabelTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/game_entry_strike_label" />
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/game_entry_ball_button_value"
+                    style="@style/ButtonValueTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/game_entry_ball_button_label"
+                    android:layout_toStartOf="@+id/game_entry_ball_button_label"
+                    android:text="@string/game_entry_numeric_default_value" />
+
+                <TextView
+                    android:id="@+id/game_entry_ball_button_label"
+                    style="@style/ButtonLabelTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/game_entry_ball_label" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/game_entry_strike_button"
+                style="@style/ButtonContainerStyleSecondary"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|end"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/game_entry_strike_button_value"
+                    style="@style/ButtonValueTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/game_entry_strike_button_label"
+                    android:layout_toStartOf="@+id/game_entry_strike_button_label"
+                    android:text="@string/game_entry_numeric_default_value" />
+
+                <TextView
+                    android:id="@+id/game_entry_strike_button_label"
+                    style="@style/ButtonLabelTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/game_entry_strike_label" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 
 </FrameLayout>

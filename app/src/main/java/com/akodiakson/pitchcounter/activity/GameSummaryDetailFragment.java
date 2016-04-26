@@ -12,6 +12,10 @@ import android.widget.TextView;
 import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.model.Game;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * A fragment representing a single GameSummary detail screen.
  * This fragment is either contained in a {@link GameSummaryListActivity}
@@ -52,7 +56,17 @@ public class GameSummaryDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.getDate());
+                try {
+                    Date yyyyMMdd = new SimpleDateFormat("yyyyMMdd").parse((mItem.getDate()));
+                    String formatted = new SimpleDateFormat("M/d/yyyy").format(yyyyMMdd);
+                    appBarLayout.setTitle(formatted);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    appBarLayout.setTitle(mItem.getDate());
+
+                }
+
             }
         }
     }
