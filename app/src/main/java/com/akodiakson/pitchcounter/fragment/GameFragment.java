@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -79,13 +81,15 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
     private Stack<StatType> userActionsStack = new Stack<>();
 
+    private View rootView;
+
     public GameFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_game, container, false);
+        rootView = inflater.inflate(R.layout.fragment_game, container, false);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -123,7 +127,8 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
         if (item.getItemId() == R.id.menu_item_history_master) {
             Intent intent = new Intent(getActivity(), GameSummaryListActivity.class);
-            startActivity(intent);
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), rootView.findViewById(R.id.ball_strike_distribution_bar), getString(R.string.transition_name_game_to_master));
+            ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
             return true;
         }
         if (item.getItemId() == R.id.menu_item_history_undo) {

@@ -20,11 +20,6 @@ public class GameSummaryPopulator {
         averagesItem.setData(seasonStats);
         summaryViewItems.add(averagesItem);
 
-        SummaryItemTO totalsItem = new SummaryItemTO(SummaryItemType.SEASON);
-        totalsItem.setData(seasonStats);
-        summaryViewItems.add(totalsItem);
-
-
         for (Game gameSummary : gameSummaries) {
             SummaryItemTO object = new SummaryItemTO(SummaryItemType.GAME);
             object.setData(gameSummary);

@@ -14,11 +14,11 @@ import com.akodiakson.pitchcounter.activity.GameSummaryDetailActivity;
 import com.akodiakson.pitchcounter.activity.GameSummaryDetailFragment;
 import com.akodiakson.pitchcounter.adapter.viewholder.GameSummaryViewHolder;
 import com.akodiakson.pitchcounter.adapter.viewholder.SeasonAveragesViewHolder;
-import com.akodiakson.pitchcounter.adapter.viewholder.SeasonTotalsViewHolder;
 import com.akodiakson.pitchcounter.model.Game;
 import com.akodiakson.pitchcounter.model.SeasonStatsTO;
 import com.akodiakson.pitchcounter.model.SummaryItemTO;
 import com.akodiakson.pitchcounter.model.SummaryItemType;
+import com.akodiakson.pitchcounter.util.DateUtil;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -35,7 +35,6 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private static final int VIEW_TYPE_GAME_SUMMARY = 1;
     private static final int VIEW_TYPE_SEASON_AVERAGES = 2;
-    private static final int VIEW_TYPE_SEASON_TOTALS = 3;
 
     public GameSummaryAdapter(List<SummaryItemTO> items, boolean twoPane, WeakReference<FragmentActivity> fragmentWeakReference) {
         mValues = items;
@@ -48,18 +47,14 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         View view;
         RecyclerView.ViewHolder holder = null;
 
-        switch (viewType){
+        switch (viewType) {
             case VIEW_TYPE_GAME_SUMMARY:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gamesummary_list_content, parent, false);
                 holder = new GameSummaryViewHolder(view);
                 break;
             case VIEW_TYPE_SEASON_AVERAGES:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_summaries_season_averages, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_summaries_header, parent, false);
                 holder = new SeasonAveragesViewHolder(view);
-                break;
-            case VIEW_TYPE_SEASON_TOTALS:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_summaries_season_totals, parent, false);
-                holder = new SeasonTotalsViewHolder(view);
                 break;
         }
 
@@ -68,17 +63,33 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        switch(getItemViewType(position)){
+        switch (getItemViewType(position)) {
             case VIEW_TYPE_GAME_SUMMARY:
                 bindGameSummaryItem((GameSummaryViewHolder) holder, position);
                 break;
             case VIEW_TYPE_SEASON_AVERAGES:
-                bindAverages((SeasonAveragesViewHolder)holder, position);
-                break;
-            case VIEW_TYPE_SEASON_TOTALS:
-                bindTotals((SeasonTotalsViewHolder)holder, position);
+                bindAverages((SeasonAveragesViewHolder) holder, position);
                 break;
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        SummaryItemTO summaryItemTO = mValues.get(position);
+        SummaryItemType summaryItemType = summaryItemTO.getSummaryItemType();
+        if (summaryItemType == SummaryItemType.GAME) {
+            return VIEW_TYPE_GAME_SUMMARY;
+        }
+        if (summaryItemType == SummaryItemType.AVERAGE) {
+            return VIEW_TYPE_SEASON_AVERAGES;
+        }
+
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mValues.size();
     }
 
     private void bindAverages(SeasonAveragesViewHolder holder, int position) {
@@ -87,38 +98,17 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.getFirst().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentBalls()));
         holder.getSecond().setText(String.valueOf(data.calculateAveragePitchesPerGame()));
         holder.getThird().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentStrikes()));
-    }
-
-    private void bindTotals(SeasonTotalsViewHolder holder, int position) {
-        SummaryItemTO summaryItemTO = mValues.get(position);
-        SeasonStatsTO data = (SeasonStatsTO) summaryItemTO.getData();
         holder.getHitsTotal().setText(String.valueOf(data.getTotalHits()));
         holder.getStrikeoutsTotal().setText(String.valueOf(data.getTotalStrikeouts()));
         holder.getWalksTotal().setText(String.valueOf(data.getTotalWalks()));
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        SummaryItemTO summaryItemTO = mValues.get(position);
-        SummaryItemType summaryItemType = summaryItemTO.getSummaryItemType();
-        if(summaryItemType == SummaryItemType.GAME){
-            return VIEW_TYPE_GAME_SUMMARY;
-        }
-        if(summaryItemType == SummaryItemType.AVERAGE){
-            return VIEW_TYPE_SEASON_AVERAGES;
-        }
-        if(summaryItemType == SummaryItemType.SEASON){
-            return VIEW_TYPE_SEASON_TOTALS;
-        }
-
-        return super.getItemViewType(position);
-    }
 
     private void bindGameSummaryItem(final GameSummaryViewHolder holder, int position) {
         SummaryItemTO summaryItemTO = mValues.get(position);
         Game data = (Game) summaryItemTO.getData();
         holder.getSummaryCount().setText(String.valueOf(data.getPitches()));
-        holder.getDateText().setText(String.valueOf(data.getDate()));
+        holder.getDateText().setText(DateUtil.getDisplayableDate(data.getDate()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,10 +133,5 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return mValues.size();
     }
 }

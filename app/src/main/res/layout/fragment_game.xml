@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.akodiakson.pitchcounter.fragment.GameFragment">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +23,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal"
-                android:text="@string/game_entry_numeric_default_value" />
+                android:text="@string/game_entry_numeric_default_value"
+                android:transitionName="@string/transition_name_game_hero_master_hero"/>
 
             <TextView
                 android:id="@+id/game_entry_pitch_count_label"
@@ -116,16 +118,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="vertical"
         android:background="@color/white"
         android:elevation="@dimen/button_container_elevation_bottom"
-        >
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ball_strike_distribution_bar"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:transitionName="@string/transition_name_game_to_master">
 
             <View
                 android:id="@+id/bar_balls"

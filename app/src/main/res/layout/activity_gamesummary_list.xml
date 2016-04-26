@@ -25,7 +25,8 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:transitionName="@string/transition_name_game_to_master">
 
         <include layout="@layout/gamesummary_list" />
     </FrameLayout>

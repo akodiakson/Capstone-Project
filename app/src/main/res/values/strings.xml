@@ -24,4 +24,6 @@
     <string name="averages_pitches_per_game">Pitches Per Game</string>
     <string name="averages_strikes_label">Strikes</string>
     <string name="game_entry_undo_menu_item">Undo</string>
+    <string name="transition_name_game_to_master">GameToMaster</string>
+    <string name="transition_name_game_hero_master_hero">GameHeroToMasterHero</string>
 </resources>

@@ -15,11 +15,19 @@ public class SeasonAveragesViewHolder extends RecyclerView.ViewHolder{
     private TextView second;
     private TextView third;
 
+    private TextView hitsTotal;
+    private TextView strikeoutsTotal;
+    private TextView walksTotal;
+
     public SeasonAveragesViewHolder(View rowView){
         super(rowView);
         first = (TextView) rowView.findViewById(R.id.season_average_balls);
         second = (TextView) rowView.findViewById(R.id.season_average_pitches);
         third = (TextView) rowView.findViewById(R.id.season_average_strikes);
+
+        hitsTotal = (TextView) rowView.findViewById(R.id.season_totals_hits);
+        strikeoutsTotal = (TextView) rowView.findViewById(R.id.season_totals_strikeouts);
+        walksTotal = (TextView) rowView.findViewById(R.id.season_totals_walks);
     }
 
     public TextView getFirst() {
@@ -32,5 +40,17 @@ public class SeasonAveragesViewHolder extends RecyclerView.ViewHolder{
 
     public TextView getThird() {
         return third;
+    }
+
+    public TextView getHitsTotal() {
+        return hitsTotal;
+    }
+
+    public TextView getStrikeoutsTotal() {
+        return strikeoutsTotal;
+    }
+
+    public TextView getWalksTotal() {
+        return walksTotal;
     }
 }
