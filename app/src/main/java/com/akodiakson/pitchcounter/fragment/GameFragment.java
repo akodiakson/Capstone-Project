@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.akodiakson.pitchcounter.PitchCounterApplication;
 import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.activity.GameSummaryListActivity;
 import com.akodiakson.pitchcounter.data.GameContentProvider;
@@ -31,6 +32,8 @@ import com.akodiakson.pitchcounter.data.LoaderIdConstants;
 import com.akodiakson.pitchcounter.data.StatType;
 import com.akodiakson.pitchcounter.data.UpdateStatQueryHandler;
 import com.akodiakson.pitchcounter.model.Game;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
@@ -82,8 +85,16 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     private Stack<StatType> userActionsStack = new Stack<>();
 
     private View rootView;
+    private Tracker defaultTracker;
 
     public GameFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PitchCounterApplication application = (PitchCounterApplication) getActivity().getApplication();
+        defaultTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -114,6 +125,8 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public void onResume() {
         super.onResume();
+        defaultTracker.setScreenName("GameFragment");
+        defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_DOES_GAME_EXIST_FOR_DATE, null, this);
     }
 
