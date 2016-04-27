@@ -1,7 +1,9 @@
 package com.akodiakson.pitchcounter;
 
 import android.app.Application;
+import android.content.Intent;
 
+import com.akodiakson.pitchcounter.service.ImageUrlService;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
@@ -10,6 +12,15 @@ import com.google.android.gms.analytics.Tracker;
  */
 public class PitchCounterApplication extends Application {
     private Tracker mTracker;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        System.out.println("PitchCounterApplication.onCreate");
+        Intent intent = new Intent(this, ImageUrlService.class);
+        intent.setAction(ImageUrlService.ACTION_RETRIEVE_IMAGE_URLS);
+        startService(intent);
+    }
 
     /**
      * Gets the default {@link Tracker} for this {@link Application}.

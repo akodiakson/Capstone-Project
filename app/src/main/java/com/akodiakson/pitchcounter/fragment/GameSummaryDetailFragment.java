@@ -50,6 +50,7 @@ public class GameSummaryDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         PitchCounterApplication application = (PitchCounterApplication)getActivity().getApplication();
         defaultTracker = application.getDefaultTracker();
 
@@ -58,12 +59,6 @@ public class GameSummaryDetailFragment extends Fragment {
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mItem = (Game) getArguments().getSerializable(ARG_ITEM_ID);
-
-            Activity activity = this.getActivity();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
-            if (appBarLayout != null) {
-                appBarLayout.setTitle(DateUtil.getDisplayableDate(mItem.getDate()));
-            }
         }
     }
 
@@ -85,5 +80,11 @@ public class GameSummaryDetailFragment extends Fragment {
         super.onResume();
         defaultTracker.setScreenName("DetailFragment");
         defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        Activity activity = this.getActivity();
+        CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+        if (appBarLayout != null) {
+            appBarLayout.setTitle(DateUtil.getDisplayableDate(mItem.getDate()));
+        }
     }
 }

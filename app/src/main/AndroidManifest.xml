@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.akodiakson.pitchcounter">
+    package="com.akodiakson.pitchcounter" >
 
-    <uses-permission android:name="android.permission.INTERNET"/> <!-- Analytics -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- Analytics -->
+    <uses-permission android:name="android.permission.INTERNET" />
+ <!-- Analytics -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- Analytics -->
     <application
+        android:name=".PitchCounterApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".PitchCounterApplication">
-        <activity android:name=".activity.GameActivity">
+        android:theme="@style/AppTheme" >
+        <activity android:name=".activity.GameActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,25 +31,33 @@
         <activity
             android:name=".activity.GameSummaryListActivity"
             android:label="@string/title_gamesummary_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.GameSummaryDetailActivity"
             android:label="@string/title_gamesummary_detail"
             android:parentActivityName=".activity.GameSummaryListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.akodiakson.pitchcounter.activity.GameSummaryListActivity" />
         </activity>
-        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
-            android:enabled="true">
+
+        <receiver
+            android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true" >
             <intent-filter>
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
         </receiver>
-        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+
+        <service
+            android:name="com.google.android.gms.analytics.AnalyticsService"
             android:enabled="true"
-            android:exported="false"/>
+            android:exported="false" />
+        <service
+            android:name=".service.ImageUrlService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
