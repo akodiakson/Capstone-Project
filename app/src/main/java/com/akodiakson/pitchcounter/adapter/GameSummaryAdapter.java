@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.activity.GameSummaryDetailActivity;
-import com.akodiakson.pitchcounter.activity.GameSummaryDetailFragment;
+import com.akodiakson.pitchcounter.fragment.GameSummaryDetailFragment;
 import com.akodiakson.pitchcounter.adapter.viewholder.GameSummaryViewHolder;
 import com.akodiakson.pitchcounter.adapter.viewholder.SeasonAveragesViewHolder;
 import com.akodiakson.pitchcounter.model.Game;

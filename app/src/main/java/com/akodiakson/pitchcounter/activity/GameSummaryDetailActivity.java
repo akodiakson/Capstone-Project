@@ -11,7 +11,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import com.akodiakson.pitchcounter.PitchCounterApplication;
 import com.akodiakson.pitchcounter.R;
+import com.akodiakson.pitchcounter.fragment.GameSummaryDetailFragment;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * An activity representing a single GameSummary detail screen. This
@@ -23,9 +27,15 @@ import com.akodiakson.pitchcounter.R;
 //TODO -- 2. Initialize calls to get season stats
 public class GameSummaryDetailActivity extends AppCompatActivity {
 
+    private Tracker defaultTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PitchCounterApplication application = (PitchCounterApplication) getApplication();
+        defaultTracker = application.getDefaultTracker();
+
         setContentView(R.layout.activity_gamesummary_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
@@ -66,6 +76,13 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
                     .add(R.id.gamesummary_detail_container, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        defaultTracker.setScreenName("SummaryActivity");
+        defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.akodiakson.pitchcounter.activity;
+package com.akodiakson.pitchcounter.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,9 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.akodiakson.pitchcounter.PitchCounterApplication;
 import com.akodiakson.pitchcounter.R;
+import com.akodiakson.pitchcounter.activity.GameSummaryDetailActivity;
+import com.akodiakson.pitchcounter.activity.GameSummaryListActivity;
 import com.akodiakson.pitchcounter.model.Game;
 import com.akodiakson.pitchcounter.util.DateUtil;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 /**
  * A fragment representing a single GameSummary detail screen.
@@ -32,6 +37,7 @@ public class GameSummaryDetailFragment extends Fragment {
 //    private DummyContent.DummyItem mItem;
 
     private Game mItem;
+    private Tracker defaultTracker;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -43,6 +49,9 @@ public class GameSummaryDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PitchCounterApplication application = (PitchCounterApplication)getActivity().getApplication();
+        defaultTracker = application.getDefaultTracker();
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             // Load the dummy content specified by the fragment
@@ -69,5 +78,12 @@ public class GameSummaryDetailFragment extends Fragment {
         }
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        defaultTracker.setScreenName("DetailFragment");
+        defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }
