@@ -1,6 +1,11 @@
 package com.akodiakson.pitchcounter.service;
 
+import com.akodiakson.pitchcounter.BusProvider;
+import com.akodiakson.pitchcounter.event.ImagesRetrievedEvent;
+import com.akodiakson.pitchcounter.model.ImageUrl;
 import com.akodiakson.pitchcounter.model.ImageUrlsResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +23,8 @@ public class ImageUrlsCallbacks implements Callback<ImageUrlsResponse> {
                 System.out.println("ImageUrlsCallbacks.onResponse success, but no urls retrieved");
             } else {
                 System.out.println("ImageUrlsCallbacks.onResponse success");
+                List<ImageUrl> imageUrls = imageUrlsResponse.getImageUrls();
+                BusProvider.getInstance().post(new ImagesRetrievedEvent(imageUrls));
             }
         }
     }

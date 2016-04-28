@@ -4,18 +4,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.akodiakson.pitchcounter.BusProvider;
 import com.akodiakson.pitchcounter.PitchCounterApplication;
 import com.akodiakson.pitchcounter.R;
+import com.akodiakson.pitchcounter.event.ImagesRetrievedEvent;
 import com.akodiakson.pitchcounter.fragment.GameSummaryDetailFragment;
+import com.akodiakson.pitchcounter.model.ImageUrl;
+import com.akodiakson.pitchcounter.service.ImageUrlService;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+import jp.wasabeef.picasso.transformations.GrayscaleTransformation;
+import jp.wasabeef.picasso.transformations.gpu.VignetteFilterTransformation;
 
 /**
  * An activity representing a single GameSummary detail screen. This
@@ -29,6 +44,9 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
 
     private Tracker defaultTracker;
 
+    @Bind(R.id.background_image_view)
+    ImageView backgroundImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +55,8 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         defaultTracker = application.getDefaultTracker();
 
         setContentView(R.layout.activity_gamesummary_detail);
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
@@ -83,7 +103,25 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         super.onResume();
         defaultTracker.setScreenName("SummaryActivity");
         defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
+
+        BusProvider.getInstance().register(this);
+        PitchCounterApplication application = (PitchCounterApplication) getApplication();
+        if(application.getImageUrls().size() == 0){
+            Intent intent = new Intent(this, ImageUrlService.class);
+            intent.setAction(ImageUrlService.ACTION_RETRIEVE_IMAGE_URLS);
+            startService(intent);
+        } else {
+            displayBackgroundImage(application.getImageUrls());
+        }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        ButterKnife.unbind(this);
+        BusProvider.getInstance().unregister(this);
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -100,5 +138,26 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe
+    public void onImagesRetrieved(ImagesRetrievedEvent event){
+        PitchCounterApplication application = (PitchCounterApplication)getApplication();
+        application.setImageUrls(event.getImageUrls());
+        System.out.println("GameFragment.onImagesRetrieved");
+        System.out.println("event = " + event);
+        displayBackgroundImage(event.getImageUrls());
+    }
+
+    private void displayBackgroundImage(List<ImageUrl> imageUrls) {
+        int position = 0;
+        ImageUrl imageUrlTO = imageUrls.get(position);
+        String url = imageUrlTO.getImageUrl();
+        Picasso.with(this).load(url)
+                .transform(new BlurTransformation(this))
+                .transform(new GrayscaleTransformation())
+                .transform(new VignetteFilterTransformation(this))
+                .into(backgroundImageView);
+
     }
 }
