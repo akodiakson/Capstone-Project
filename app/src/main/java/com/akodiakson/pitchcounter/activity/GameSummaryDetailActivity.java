@@ -18,7 +18,7 @@ import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.event.ImagesRetrievedEvent;
 import com.akodiakson.pitchcounter.fragment.GameSummaryDetailFragment;
 import com.akodiakson.pitchcounter.model.ImageUrl;
-import com.akodiakson.pitchcounter.service.ImageUrlService;
+import com.akodiakson.pitchcounter.util.RetrieveImagesUtil;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Subscribe;
@@ -107,9 +107,7 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         BusProvider.getInstance().register(this);
         PitchCounterApplication application = (PitchCounterApplication) getApplication();
         if(application.getImageUrls().size() == 0){
-            Intent intent = new Intent(this, ImageUrlService.class);
-            intent.setAction(ImageUrlService.ACTION_RETRIEVE_IMAGE_URLS);
-            startService(intent);
+            RetrieveImagesUtil.retrieveImages(this);
         } else {
             displayBackgroundImage(application.getImageUrls());
         }
@@ -144,8 +142,6 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
     public void onImagesRetrieved(ImagesRetrievedEvent event){
         PitchCounterApplication application = (PitchCounterApplication)getApplication();
         application.setImageUrls(event.getImageUrls());
-        System.out.println("GameFragment.onImagesRetrieved");
-        System.out.println("event = " + event);
         displayBackgroundImage(event.getImageUrls());
     }
 
