@@ -1,0 +1,116 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:elevation="@dimen/button_container_elevation_bottom"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/game_entry_ball_button"
+                style="@style/ButtonContainerStyleSecondaryWidget"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/game_entry_ball_button_value"
+                    style="@style/ButtonValueTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/game_entry_ball_button_label"
+                    android:layout_toStartOf="@+id/game_entry_ball_button_label"
+                    android:text="@string/game_entry_numeric_default_value" />
+
+                <TextView
+                    android:id="@+id/game_entry_ball_button_label"
+                    style="@style/ButtonLabelTextStyle"
+                    android:textColor="#000000"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/game_entry_ball_label" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/game_entry_strike_button"
+                style="@style/ButtonContainerStyleSecondaryWidget"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|end"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/game_entry_strike_button_value"
+                    style="@style/ButtonValueTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toLeftOf="@+id/game_entry_strike_button_label"
+                    android:layout_toStartOf="@+id/game_entry_strike_button_label"
+                    android:text="@string/game_entry_numeric_default_value" />
+
+                <TextView
+                    android:id="@+id/game_entry_strike_button_label"
+                    style="@style/ButtonLabelTextStyle"
+                    android:textColor="#000000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/game_entry_strike_label" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="44dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="center">
+
+
+        <TextView
+            android:id="@+id/total_pitch_count"
+            style="@style/TextAppearance.AppCompat.Display1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="2dp"
+            android:contentDescription="@string/appwidget_text"
+            android:text="52"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            style="@style/ButtonLabelTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/game_entry_pitch_count_label"
+            android:textColor="@color/colorPrimaryDark" />
+    </LinearLayout>
+
+
+</FrameLayout>

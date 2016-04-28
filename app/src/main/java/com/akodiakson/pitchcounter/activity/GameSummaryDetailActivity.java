@@ -22,16 +22,12 @@ import com.akodiakson.pitchcounter.util.RetrieveImagesUtil;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.squareup.otto.Subscribe;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.wasabeef.picasso.transformations.BlurTransformation;
-import jp.wasabeef.picasso.transformations.GrayscaleTransformation;
-import jp.wasabeef.picasso.transformations.gpu.VignetteFilterTransformation;
 
 /**
  * An activity representing a single GameSummary detail screen. This
@@ -150,11 +146,11 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         int position = new Random().nextInt(imageUrls.size());
         ImageUrl imageUrlTO = imageUrls.get(position);
         String url = imageUrlTO.getImageUrl();
-        Picasso.with(this).load(url)
-                .transform(new BlurTransformation(this))
-                .transform(new GrayscaleTransformation())
-                .transform(new VignetteFilterTransformation(this))
-                .into(backgroundImageView);
+//        Picasso.with(this).load(url)
+//                .transform(new BlurTransformation(this))
+//                .transform(new GrayscaleTransformation())
+//                .transform(new VignetteFilterTransformation(this))
+//                .into(backgroundImageView);
 
     }
 }

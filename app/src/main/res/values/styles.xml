@@ -15,6 +15,10 @@
         <item name="android:minHeight">48dp</item>
     </style>
 
+    <style name="ButtonContainerStyleSecondaryWidget">
+        <item name="android:padding">@dimen/game_entry_button_container_padding</item>
+    </style>
+
     <style name="ButtonContainerStylePrimary">
         <item name="android:padding">@dimen/game_entry_button_container_padding</item>
         <item name="android:background">?attr/selectableItemBackground</item>

@@ -26,4 +26,6 @@
     <string name="game_entry_undo_menu_item">Undo</string>
     <string name="transition_name_game_to_master">GameToMaster</string>
     <string name="transition_name_game_hero_master_hero">GameHeroToMasterHero</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
