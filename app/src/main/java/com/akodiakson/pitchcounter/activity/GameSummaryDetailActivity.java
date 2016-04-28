@@ -25,6 +25,7 @@ import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -146,7 +147,7 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
     }
 
     private void displayBackgroundImage(List<ImageUrl> imageUrls) {
-        int position = 0;
+        int position = new Random().nextInt(imageUrls.size());
         ImageUrl imageUrlTO = imageUrls.get(position);
         String url = imageUrlTO.getImageUrl();
         Picasso.with(this).load(url)
