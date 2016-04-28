@@ -1,5 +1,7 @@
 package com.akodiakson.pitchcounter.service;
 
+import android.util.Log;
+
 import com.akodiakson.pitchcounter.BusProvider;
 import com.akodiakson.pitchcounter.event.ImagesRetrievedEvent;
 import com.akodiakson.pitchcounter.model.ImageUrl;
@@ -20,18 +22,19 @@ public class ImageUrlsCallbacks implements Callback<ImageUrlsResponse> {
         if(response.isSuccessful()){
             ImageUrlsResponse imageUrlsResponse = response.body();
             if(imageUrlsResponse == null || imageUrlsResponse.getImageUrls() == null || imageUrlsResponse.getImageUrls().size() == 0){
-                System.out.println("ImageUrlsCallbacks.onResponse success, but no urls retrieved");
+                Log.e("ImageUrlsCallbacks", "onResponse - successful, but no images retrieved");
             } else {
                 System.out.println("ImageUrlsCallbacks.onResponse success");
                 List<ImageUrl> imageUrls = imageUrlsResponse.getImageUrls();
                 BusProvider.getInstance().post(new ImagesRetrievedEvent(imageUrls));
             }
+        } else {
+            Log.e("ImageUrlsCallbacks", "onResponse - not successful,  no images retrieved");
         }
     }
 
     @Override
     public void onFailure(Call<ImageUrlsResponse> call, Throwable t) {
-        System.out.println("ImageUrlsCallbacks.onFailure");
-        System.out.println("t = " + t);
+        Log.e("ImageUrlsCallbacks", "onFailure", t);
     }
 }
