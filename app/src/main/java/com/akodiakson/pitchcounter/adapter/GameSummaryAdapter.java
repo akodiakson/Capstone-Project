@@ -8,12 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.akodiakson.pitchcounter.R;
 import com.akodiakson.pitchcounter.activity.GameSummaryDetailActivity;
-import com.akodiakson.pitchcounter.fragment.GameSummaryDetailFragment;
 import com.akodiakson.pitchcounter.adapter.viewholder.GameSummaryViewHolder;
 import com.akodiakson.pitchcounter.adapter.viewholder.SeasonAveragesViewHolder;
+import com.akodiakson.pitchcounter.fragment.GameSummaryDetailFragment;
 import com.akodiakson.pitchcounter.model.Game;
 import com.akodiakson.pitchcounter.model.SeasonStatsTO;
 import com.akodiakson.pitchcounter.model.SummaryItemTO;
@@ -96,7 +97,9 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         SummaryItemTO summaryItemTO = mValues.get(position);
         SeasonStatsTO data = (SeasonStatsTO) summaryItemTO.getData();
         holder.getFirst().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentBalls()));
-        holder.getSecond().setText(String.valueOf(data.calculateAveragePitchesPerGame()));
+        float pitchesPerGame = data.calculateAveragePitchesPerGame();
+        DecimalFormat decimalFormat = new DecimalFormat("#0.0");
+        holder.getSecond().setText(decimalFormat.format(pitchesPerGame));
         holder.getThird().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentStrikes()));
         holder.getHitsTotal().setText(String.valueOf(data.getTotalHits()));
         holder.getStrikeoutsTotal().setText(String.valueOf(data.getTotalStrikeouts()));
@@ -109,6 +112,13 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Game data = (Game) summaryItemTO.getData();
         holder.getSummaryCount().setText(String.valueOf(data.getPitches()));
         holder.getDateText().setText(DateUtil.getDisplayableDate(data.getDate()));
+        View barBalls = holder.getBallStrikeDistributionBar().findViewById(R.id.bar_balls);
+        View barStrikes = holder.getBallStrikeDistributionBar().findViewById(R.id.bar_strikes);
+        LinearLayout.LayoutParams ballLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, data.getBalls());
+        barBalls.setLayoutParams(ballLayoutParams);
+        LinearLayout.LayoutParams strikeLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, data.getStrikes());
+        barStrikes.setLayoutParams(strikeLayoutParams);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

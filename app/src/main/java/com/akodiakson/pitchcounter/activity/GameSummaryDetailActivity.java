@@ -2,15 +2,11 @@ package com.akodiakson.pitchcounter.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.akodiakson.pitchcounter.BusProvider;
 import com.akodiakson.pitchcounter.PitchCounterApplication;
@@ -26,7 +22,6 @@ import com.squareup.otto.Subscribe;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -41,8 +36,8 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
 
     private Tracker defaultTracker;
 
-    @Bind(R.id.background_image_view)
-    ImageView backgroundImageView;
+//    @Bind(R.id.background_image_view)
+//    ImageView backgroundImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +52,14 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
