@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BaseballImageApi {
 
     private static final String ENDPOINT_URL = "https://write.as/";
-    private static final String FILE_NAME = "msimkcssvq49y.txt";
+    private static final String FILE_NAME = "a372jwl7n7w4n.txt";
 
     private static BaseballImageApi INSTANCE;
 
