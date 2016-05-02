@@ -56,6 +56,7 @@ import butterknife.OnClick;
 public class GameFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, UpdateStatQueryHandler.UpdateStatQueryListener {
 
     private static final String TAG = "GameFragment";
+    private static final int UPDATE_COOKIE = -1;
     @Bind(R.id.game_entry_pitch_count_value)
     TextView pitchCount;
 
@@ -387,6 +388,6 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         ContentResolver contentResolver = getContext().getContentResolver();
         contentResolver.update(GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
         UpdateStatQueryHandler handler = new UpdateStatQueryHandler(getContext().getContentResolver(), new WeakReference<UpdateStatQueryHandler.UpdateStatQueryListener>(this));
-        handler.startUpdate(statType.ordinal(), -1, GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
+        handler.startUpdate(statType.ordinal(), UPDATE_COOKIE, GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
     }
 }
