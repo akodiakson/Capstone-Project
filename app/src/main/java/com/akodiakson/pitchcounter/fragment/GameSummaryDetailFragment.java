@@ -17,6 +17,8 @@ import com.akodiakson.pitchcounter.activity.GameSummaryDetailActivity;
 import com.akodiakson.pitchcounter.activity.GameSummaryListActivity;
 import com.akodiakson.pitchcounter.model.Game;
 import com.akodiakson.pitchcounter.util.DateUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -124,5 +126,10 @@ public class GameSummaryDetailFragment extends Fragment {
         if (appBarLayout != null) {
             appBarLayout.setTitle(DateUtil.getDisplayableDate(mItem.getDate()));
         }
+
+        AdView adView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .setRequestAgent("android_studio:ad_template").build();
+        adView.loadAd(adRequest);
     }
 }
