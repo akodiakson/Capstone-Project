@@ -75,4 +75,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="GameSummaryDetailCard" parent="CardView.Light">
+        <item name="cardCornerRadius">2dp</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
 </resources>

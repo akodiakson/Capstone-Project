@@ -96,11 +96,11 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private void bindAverages(SeasonAveragesViewHolder holder, int position) {
         SummaryItemTO summaryItemTO = mValues.get(position);
         SeasonStatsTO data = (SeasonStatsTO) summaryItemTO.getData();
-        holder.getFirst().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentBalls()));
+        holder.getBalls().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentBalls()));
         float pitchesPerGame = data.calculateAveragePitchesPerGame();
         DecimalFormat decimalFormat = new DecimalFormat("#0.0");
-        holder.getSecond().setText(decimalFormat.format(pitchesPerGame));
-        holder.getThird().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentStrikes()));
+        holder.getPitches().setText(decimalFormat.format(pitchesPerGame));
+        holder.getStrikes().setText(DecimalFormat.getPercentInstance().format(data.calculatePercentStrikes()));
         holder.getHitsTotal().setText(String.valueOf(data.getTotalHits()));
         holder.getStrikeoutsTotal().setText(String.valueOf(data.getTotalStrikeouts()));
         holder.getWalksTotal().setText(String.valueOf(data.getTotalWalks()));

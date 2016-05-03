@@ -13,7 +13,7 @@
     <dimen name="game_summary_row_date_left_margin">64dp</dimen>
 
     <dimen name="summary_vertical_padding">48dp</dimen>
-    <dimen name="summary_averages_vertical_padding">8dp</dimen>
+    <dimen name="summary_averages_vertical_padding">16dp</dimen>
     <dimen name="button_container_elevation_top">2dp</dimen>
     <dimen name="button_container_elevation_bottom">16dp</dimen>
 

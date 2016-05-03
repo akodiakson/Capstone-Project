@@ -11,9 +11,9 @@ import com.akodiakson.pitchcounter.R;
  */
 public class SeasonAveragesViewHolder extends RecyclerView.ViewHolder{
 
-    private TextView first;
-    private TextView second;
-    private TextView third;
+    private TextView balls;
+    private TextView pitches;
+    private TextView strikes;
 
     private TextView hitsTotal;
     private TextView strikeoutsTotal;
@@ -21,25 +21,25 @@ public class SeasonAveragesViewHolder extends RecyclerView.ViewHolder{
 
     public SeasonAveragesViewHolder(View rowView){
         super(rowView);
-        first = (TextView) rowView.findViewById(R.id.season_average_balls);
-        second = (TextView) rowView.findViewById(R.id.season_average_pitches);
-        third = (TextView) rowView.findViewById(R.id.season_average_strikes);
+        balls = (TextView) rowView.findViewById(R.id.season_average_balls);
+        pitches = (TextView) rowView.findViewById(R.id.season_average_pitches);
+        strikes = (TextView) rowView.findViewById(R.id.season_average_strikes);
 
         hitsTotal = (TextView) rowView.findViewById(R.id.season_totals_hits);
         strikeoutsTotal = (TextView) rowView.findViewById(R.id.season_totals_strikeouts);
         walksTotal = (TextView) rowView.findViewById(R.id.season_totals_walks);
     }
 
-    public TextView getFirst() {
-        return first;
+    public TextView getBalls() {
+        return balls;
     }
 
-    public TextView getSecond() {
-        return second;
+    public TextView getPitches() {
+        return pitches;
     }
 
-    public TextView getThird() {
-        return third;
+    public TextView getStrikes() {
+        return strikes;
     }
 
     public TextView getHitsTotal() {

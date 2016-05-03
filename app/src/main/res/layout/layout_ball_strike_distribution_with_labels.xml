@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <TextView
+            android:id="@+id/distribution_ball_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8 Balls"
+            android:layout_gravity="center_vertical|start"/>
+
+        <TextView
+            android:id="@+id/distribution_strike_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="31 Strikes"
+            android:layout_gravity="center_vertical|end"/>
+
+        <!--<TextView-->
+            <!--android:id="@+id/distribution_percent_strikes"-->
+            <!--style="@style/TextAppearance.AppCompat.Title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="78% Strikes"-->
+            <!--android:layout_gravity="center" />-->
+    </FrameLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ball_strike_distribution_bar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:transitionName="@string/transition_name_game_to_master"
+        tools:showIn="@layout/fragment_game">
+
+        <View
+            android:id="@+id/bar_balls"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="70"
+            android:background="@color/appWindowBackground" />
+
+        <View
+            android:id="@+id/bar_strikes"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="30"
+            android:background="@color/colorPrimary" />
+    </LinearLayout>
+</LinearLayout>

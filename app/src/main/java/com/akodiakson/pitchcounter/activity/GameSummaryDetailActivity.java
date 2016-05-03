@@ -52,7 +52,6 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         defaultTracker = application.getDefaultTracker();
 
         setContentView(R.layout.activity_game_summary_detail);
-        ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
@@ -89,6 +88,8 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ButterKnife.bind(this);
+
         defaultTracker.setScreenName("SummaryActivity");
         defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
 

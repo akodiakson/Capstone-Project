@@ -1,12 +1,14 @@
 package com.akodiakson.pitchcounter.fragment;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akodiakson.pitchcounter.PitchCounterApplication;
@@ -39,6 +41,8 @@ public class GameSummaryDetailFragment extends Fragment {
     private Game mItem;
     private Tracker defaultTracker;
 
+    private View rootView;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -51,7 +55,7 @@ public class GameSummaryDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        PitchCounterApplication application = (PitchCounterApplication)getActivity().getApplication();
+        PitchCounterApplication application = (PitchCounterApplication) getActivity().getApplication();
         defaultTracker = application.getDefaultTracker();
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
@@ -65,15 +69,49 @@ public class GameSummaryDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_game_summary_detail, container, false);
+        rootView = inflater.inflate(R.layout.fragment_game_summary_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.gamesummary_detail)).setText(mItem.getDate());
+            setPitchStats();
+            setPitchDistribution();
+            setGameStats();
         }
 
         return rootView;
     }
+
+    private void setPitchStats() {
+        TextView balls = (TextView) rootView.findViewById(R.id.season_average_balls);
+        TextView pitches = (TextView) rootView.findViewById(R.id.season_average_pitches);
+        TextView strikes = (TextView) rootView.findViewById(R.id.season_average_strikes);
+        balls.setText(String.valueOf(mItem.getBalls()));
+        pitches.setText(String.valueOf(mItem.getPitches()));
+        strikes.setText(String.valueOf(mItem.getStrikes()));
+    }
+
+    private void setPitchDistribution() {
+        Resources resources = getActivity().getResources();
+        ((TextView) rootView.findViewById(R.id.distribution_ball_count)).setText(resources.getString(R.string.distribution_balls, mItem.getBalls()));
+        ((TextView) rootView.findViewById(R.id.distribution_strike_count)).setText(resources.getString(R.string.distribution_strikes, mItem.getStrikes()));
+
+        View barBalls = rootView.findViewById(R.id.bar_balls);
+        View barStrikes = rootView.findViewById(R.id.bar_strikes);
+        LinearLayout.LayoutParams ballLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, mItem.getBalls());
+        barBalls.setLayoutParams(ballLayoutParams);
+        LinearLayout.LayoutParams strikeLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, mItem.getStrikes());
+        barStrikes.setLayoutParams(strikeLayoutParams);
+    }
+
+    private void setGameStats() {
+        TextView hitsTotal = (TextView) rootView.findViewById(R.id.season_totals_hits);
+        TextView strikeoutsTotal = (TextView) rootView.findViewById(R.id.season_totals_strikeouts);
+        TextView walksTotal = (TextView) rootView.findViewById(R.id.season_totals_walks);
+        hitsTotal.setText(String.valueOf(mItem.getHits()));
+        strikeoutsTotal.setText(String.valueOf(mItem.getStrikeouts()));
+        walksTotal.setText(String.valueOf(mItem.getWalks()));
+    }
+
 
     @Override
     public void onResume() {

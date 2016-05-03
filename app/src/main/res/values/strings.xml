@@ -29,4 +29,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="fab_summary_list_start_or_resume_game_content_description">Start or resume game</string>
+    <string name="distribution_balls">%1$d Balls</string>
+    <string name="distribution_strikes">%1$d Strikes</string>
 </resources>
