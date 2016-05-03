@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.akodiakson.pitchcounter.R;
@@ -27,13 +28,14 @@ import java.util.Date;
  */
 public class GameEntryWidget extends AppWidgetProvider {
 
+    private static final String TAG = "GameEntryWidget";
+
     private static final String ACTION_BALL = "ACTION_BALL";
     private static final String ACTION_STRIKE = "ACTION_STRIKE";
     private static final String WIDGET_ID = "WIDGET_ID";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        System.out.println("GameEntryWidget.updateAppWidget");
 
         Game game = getGameData(context);
 
@@ -50,7 +52,6 @@ public class GameEntryWidget extends AppWidgetProvider {
     }
 
     private static Game getGameData(Context context) {
-        System.out.println("GameEntryWidget.getGameData");
         String gameDate = getTodaysDate();
 
         ContentResolver contentResolver = context.getContentResolver();
@@ -61,7 +62,7 @@ public class GameEntryWidget extends AppWidgetProvider {
                 new String[]{gameDate}, null);
 
         Game game;
-        if(cursor != null){
+        if (cursor != null) {
             cursor.moveToFirst();
             game = GameCursorUtil.buildGame(cursor);
             cursor.close();
@@ -85,7 +86,8 @@ public class GameEntryWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        System.out.println("GameEntryWidget.onUpdate");
+        Log.i(TAG, "Widget onUpdate");
+
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
@@ -105,20 +107,20 @@ public class GameEntryWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        System.out.println("GameEntryWidget.onReceive " + intent.getAction());
+        Log.i(TAG, "Widget onReceive with action = " + intent.getAction());
 
         int widgetId = intent.getIntExtra(WIDGET_ID, 0);
 
         Game game = getGameData(context);
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put(StatType.TOTAL_PITCHES.getAssociatedStatColumn(), (game.getPitches()+1));
+        contentValues.put(StatType.TOTAL_PITCHES.getAssociatedStatColumn(), (game.getPitches() + 1));
 
-        if(ACTION_BALL.equals(intent.getAction())){
-            contentValues.put(StatType.BALL.getAssociatedStatColumn(), (game.getBalls()+1));
+        if (ACTION_BALL.equals(intent.getAction())) {
+            contentValues.put(StatType.BALL.getAssociatedStatColumn(), (game.getBalls() + 1));
             updateStatValue(context, contentValues, StatType.BALL, widgetId);
-        } else if(ACTION_STRIKE.equals(intent.getAction())){
-            contentValues.put(StatType.STRIKE.getAssociatedStatColumn(), (game.getStrikes()+1));
+        } else if (ACTION_STRIKE.equals(intent.getAction())) {
+            contentValues.put(StatType.STRIKE.getAssociatedStatColumn(), (game.getStrikes() + 1));
             updateStatValue(context, contentValues, StatType.STRIKE, widgetId);
         }
     }

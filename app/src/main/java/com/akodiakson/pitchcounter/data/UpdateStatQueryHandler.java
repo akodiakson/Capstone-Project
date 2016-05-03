@@ -55,7 +55,6 @@ public class UpdateStatQueryHandler extends AsyncQueryHandler {
         int[] ids = {widgetId};
         updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
         context.sendBroadcast(updateIntent);
-        System.out.println("UpdateStatQueryHandler.onUpdateComplete sending widget update");
     }
 
 }

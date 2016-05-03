@@ -36,7 +36,6 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.lang.ref.WeakReference;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Stack;
@@ -114,13 +113,6 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
 
         Date today = new Date();
         gameDate = new SimpleDateFormat("yyyyMMdd").format(today);
-        try {
-            Date yyyyMMdd = new SimpleDateFormat("yyyyMMdd").parse(gameDate);
-            System.out.println("yyyyMMdd = " + yyyyMMdd);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override

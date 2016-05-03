@@ -16,12 +16,6 @@ public class PitchCounterApplication extends Application {
     private Tracker mTracker;
     private List<ImageUrl> imageUrls;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        System.out.println("PitchCounterApplication.onCreate");
-    }
-
     /**
      * Gets the default {@link Tracker} for this {@link Application}.
      * @return tracker

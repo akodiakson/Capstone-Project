@@ -97,7 +97,6 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        System.out.println("GameSummaryListActivity.onLoadFinished");
         switch (loader.getId()) {
             case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
                 List<Game> gameSummaries = new ArrayList<>();
@@ -118,8 +117,6 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
     }
 
     private void setAdapterData(List<Game> gameSummaries, SeasonStatsTO seasonStats){
-        System.out.println("GameSummaryListActivity.setAdapterData");
-        System.out.println("seasonStats = " + seasonStats);
         View recyclerView = findViewById(R.id.gamesummary_list);
         assert recyclerView != null;
         ((RecyclerView)recyclerView).setAdapter(new GameSummaryAdapter(GameSummaryPopulator.populate(gameSummaries, seasonStats), mTwoPane, new WeakReference<FragmentActivity>(this)));
