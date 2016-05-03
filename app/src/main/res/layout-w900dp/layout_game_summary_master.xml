@@ -25,7 +25,7 @@
         android:layout_height="match_parent"
         app:layoutManager="LinearLayoutManager"
         tools:context="com.akodiakson.pitchcounter.activity.GameSummaryListActivity"
-        tools:listitem="@layout/gamesummary_list_content" />
+        tools:listitem="@layout/item_game_summary" />
 
     <FrameLayout
         android:id="@+id/gamesummary_detail_container"

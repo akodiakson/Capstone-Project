@@ -51,7 +51,7 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         PitchCounterApplication application = (PitchCounterApplication) getApplication();
         defaultTracker = application.getDefaultTracker();
 
-        setContentView(R.layout.activity_gamesummary_detail);
+        setContentView(R.layout.activity_game_summary_detail);
         ButterKnife.bind(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);

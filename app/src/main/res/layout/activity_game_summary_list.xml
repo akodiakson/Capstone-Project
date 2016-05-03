@@ -28,7 +28,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:transitionName="@string/transition_name_game_to_master">
 
-        <include layout="@layout/gamesummary_list" />
+        <include layout="@layout/layout_game_summary_master" />
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/baseball" />
+        android:src="@drawable/baseball"
+        android:contentDescription="@string/fab_summary_list_start_or_resume_game_content_description"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

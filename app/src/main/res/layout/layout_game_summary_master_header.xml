@@ -3,6 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <include layout="@layout/layout_summaries_season_averages"/>
-    <include layout="@layout/layout_summaries_season_totals"/>
+    <include layout="@layout/layout_game_summary_master_season_averages"/>
+    <include layout="@layout/layout_game_summary_master_season_totals"/>
 </LinearLayout>

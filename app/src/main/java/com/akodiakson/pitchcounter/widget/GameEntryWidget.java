@@ -38,7 +38,7 @@ public class GameEntryWidget extends AppWidgetProvider {
         Game game = getGameData(context);
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.game_entry_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_game);
         views.setOnClickPendingIntent(R.id.game_entry_ball_button, getPitchClickedPendingIntent(context, ACTION_BALL, appWidgetId));
         views.setOnClickPendingIntent(R.id.game_entry_strike_button, getPitchClickedPendingIntent(context, ACTION_STRIKE, appWidgetId));
         views.setTextViewText(R.id.total_pitch_count, String.valueOf(game.getPitches()));

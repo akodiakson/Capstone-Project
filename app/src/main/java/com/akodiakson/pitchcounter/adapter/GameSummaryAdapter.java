@@ -50,11 +50,11 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case VIEW_TYPE_GAME_SUMMARY:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.gamesummary_list_content, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game_summary, parent, false);
                 holder = new GameSummaryViewHolder(view);
                 break;
             case VIEW_TYPE_SEASON_AVERAGES:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_summaries_header, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_game_summary_master_header, parent, false);
                 holder = new SeasonAveragesViewHolder(view);
                 break;
         }
@@ -105,7 +105,6 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.getStrikeoutsTotal().setText(String.valueOf(data.getTotalStrikeouts()));
         holder.getWalksTotal().setText(String.valueOf(data.getTotalWalks()));
     }
-
 
     private void bindGameSummaryItem(final GameSummaryViewHolder holder, int position) {
         SummaryItemTO summaryItemTO = mValues.get(position);

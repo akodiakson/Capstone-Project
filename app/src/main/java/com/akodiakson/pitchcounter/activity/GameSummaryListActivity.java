@@ -46,7 +46,7 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gamesummary_list);
+        setContentView(R.layout.activity_game_summary_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -24,7 +24,6 @@ public class ImageUrlsCallbacks implements Callback<ImageUrlsResponse> {
             if(imageUrlsResponse == null || imageUrlsResponse.getImageUrls() == null || imageUrlsResponse.getImageUrls().size() == 0){
                 Log.e("ImageUrlsCallbacks", "onResponse - successful, but no images retrieved");
             } else {
-                System.out.println("ImageUrlsCallbacks.onResponse success");
                 List<ImageUrl> imageUrls = imageUrlsResponse.getImageUrls();
                 BusProvider.getInstance().post(new ImagesRetrievedEvent(imageUrls));
             }
