@@ -23,7 +23,11 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-
+            <ImageView
+                android:id="@+id/background_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
@@ -32,11 +36,7 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-            <ImageView
-                android:id="@+id/background_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
+
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
