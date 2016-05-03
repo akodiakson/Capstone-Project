@@ -27,19 +27,6 @@ public final class GameContract {
             NUM_GAMES_SELECTION
     };
 
-    public static final String SEASON_NUM_PITCHES = "seasonPitches";
-    public static final String SEASON_NUM_PITCHES_SELECTION = "sum(" + PITCHES + ") as seasonPitches";
-
-    public static final String SEASON_NUM_BALLS = "seasonBalls";
-    public static final String SEASON_NUM_BALLS_SELECTION = "sum(" + BALLS + ") as seasonBalls";
-
-    public static final String SEASON_NUM_STRIKES = "seasonStrikes";
-    public static final String SEASON_NUM_STRIKES_SELECTION = "sum(" + STRIKES + ") as seasonStrikes";
-
-    public static final String[] PROJECTION_SUMMARY_CALCULATIONS = new String[]{
-            NUM_GAMES_SELECTION, SEASON_NUM_PITCHES_SELECTION, SEASON_NUM_BALLS_SELECTION, SEASON_NUM_STRIKES_SELECTION
-    };
-
     public static final String SQL_CREATE = "CREATE TABLE " +
             TABLE_NAME + " " +
             "(" +

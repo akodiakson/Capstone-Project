@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by ace0808 on 4/19/2016.
  */
 public class GameDbHelper extends SQLiteOpenHelper {
-    public GameDbHelper(Context context, SQLiteDatabase.CursorFactory factory) {
-        super(context, DatabaseConstants.DATABASE_NAME, factory, DatabaseConstants.DATABASE_VERSION);
+    public GameDbHelper(Context context) {
+        super(context, DatabaseConstants.DATABASE_NAME, null, DatabaseConstants.DATABASE_VERSION);
     }
 
     @Override

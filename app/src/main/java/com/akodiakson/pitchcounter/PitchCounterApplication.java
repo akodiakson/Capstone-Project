@@ -13,7 +13,7 @@ import java.util.List;
  * Created by ace0808 on 4/26/2016.
  */
 public class PitchCounterApplication extends Application {
-    private Tracker mTracker;
+    private Tracker tracker;
     private List<ImageUrl> imageUrls;
 
     /**
@@ -21,12 +21,12 @@ public class PitchCounterApplication extends Application {
      * @return tracker
      */
     synchronized public Tracker getDefaultTracker() {
-        if (mTracker == null) {
+        if (tracker == null) {
             GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
             // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-            mTracker = analytics.newTracker(R.xml.global_tracker);
+            tracker = analytics.newTracker(R.xml.global_tracker);
         }
-        return mTracker;
+        return tracker;
     }
 
     public List<ImageUrl> getImageUrls() {

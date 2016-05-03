@@ -12,8 +12,7 @@ public class DateUtil {
     public static String getDisplayableDate(String stringDateIn){
         try {
             Date yyyyMMdd = new SimpleDateFormat("yyyyMMdd").parse(stringDateIn);
-            String formatted = new SimpleDateFormat("EEEE M/d/yy").format(yyyyMMdd);
-            return formatted;
+            return new SimpleDateFormat("EEEE M/d/yy").format(yyyyMMdd);
         } catch (ParseException e) {
             e.printStackTrace();
            return stringDateIn;

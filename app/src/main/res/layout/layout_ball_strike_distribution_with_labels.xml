@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
@@ -11,14 +13,14 @@
             android:id="@+id/distribution_ball_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="8 Balls"
+            tools:text="8 Balls"
             android:layout_gravity="center_vertical|start"/>
 
         <TextView
             android:id="@+id/distribution_strike_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="31 Strikes"
+            tools:text="31 Strikes"
             android:layout_gravity="center_vertical|end"/>
 
         <!--<TextView-->

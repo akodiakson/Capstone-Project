@@ -20,7 +20,7 @@ public class UpdateStatQueryHandler extends AsyncQueryHandler {
     private int widgetId = -1;
 
     public interface UpdateStatQueryListener{
-        void onUpdateComplete(int token, Object cookie, int result);
+        void onUpdateComplete(int token);
     }
     public UpdateStatQueryHandler(ContentResolver cr, WeakReference<UpdateStatQueryListener> updateStatQueryListenerWeakReference) {
         super(cr);
@@ -40,7 +40,7 @@ public class UpdateStatQueryHandler extends AsyncQueryHandler {
                 return;
             }
             UpdateStatQueryListener updateStatQueryListener = updateStatQueryListenerWeakReference.get();
-            updateStatQueryListener.onUpdateComplete(token, cookie, result);
+            updateStatQueryListener.onUpdateComplete(token);
         }
 
         if(contextWeakReference == null || contextWeakReference.get() == null){

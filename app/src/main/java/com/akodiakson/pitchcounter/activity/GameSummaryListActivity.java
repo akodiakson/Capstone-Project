@@ -50,15 +50,20 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        if (toolbar != null) {
+            toolbar.setTitle(getTitle());
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_summary_list_start_or_resume_game);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        if (fab != null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finish();
+                }
+            });
+
+        }
 
         View recyclerView = findViewById(R.id.gamesummary_list);
         assert recyclerView != null;
@@ -101,7 +106,7 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
             case LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARIES:
                 List<Game> gameSummaries = new ArrayList<>();
                 SeasonStatsTO seasonStatsTO = new SeasonStatsTO();
-                while(data.moveToNext()) {
+                while (data.moveToNext()) {
                     Game game = GameCursorUtil.buildGame(data);
                     seasonStatsTO.addGameStats(game);
                     gameSummaries.add(game);
@@ -116,9 +121,9 @@ public class GameSummaryListActivity extends AppCompatActivity implements Loader
 
     }
 
-    private void setAdapterData(List<Game> gameSummaries, SeasonStatsTO seasonStats){
+    private void setAdapterData(List<Game> gameSummaries, SeasonStatsTO seasonStats) {
         View recyclerView = findViewById(R.id.gamesummary_list);
         assert recyclerView != null;
-        ((RecyclerView)recyclerView).setAdapter(new GameSummaryAdapter(GameSummaryPopulator.populate(gameSummaries, seasonStats), mTwoPane, new WeakReference<FragmentActivity>(this)));
+        ((RecyclerView) recyclerView).setAdapter(new GameSummaryAdapter(GameSummaryPopulator.populate(gameSummaries, seasonStats), mTwoPane, new WeakReference<FragmentActivity>(this)));
     }
 }

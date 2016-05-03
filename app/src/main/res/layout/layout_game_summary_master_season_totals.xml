@@ -6,7 +6,8 @@
     android:background="@color/colorPrimaryDark"
     android:orientation="horizontal"
     android:paddingBottom="@dimen/summary_averages_vertical_padding"
-    android:paddingTop="@dimen/summary_averages_vertical_padding">
+    android:paddingTop="@dimen/summary_averages_vertical_padding"
+    android:baselineAligned="false">
 
     <RelativeLayout
         android:layout_width="0dp"

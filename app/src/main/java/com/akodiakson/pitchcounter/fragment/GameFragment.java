@@ -355,7 +355,7 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
     @Override
-    public void onUpdateComplete(int token, Object cookie, int result) {
+    public void onUpdateComplete(int token) {
         //When you're done, query to update the count TextViews
         if (token != StatType.TOTAL_PITCHES.ordinal()) {
             getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARY, null, this);

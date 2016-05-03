@@ -1,14 +1,10 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="game_entry_button_container_padding">16dp</dimen>
     <dimen name="button_container_min_height">48dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">256dp</dimen>
     <dimen name="item_width">300dp</dimen>
-    <dimen name="text_margin">16dp</dimen>
     <dimen name="game_summary_row_min_height">64dp</dimen>
     <dimen name="game_summary_row_date_left_margin">64dp</dimen>
 

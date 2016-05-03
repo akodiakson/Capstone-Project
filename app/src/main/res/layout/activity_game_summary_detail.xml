@@ -27,7 +27,8 @@
                 android:id="@+id/background_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/game_detail_hero_image_content_description"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"

@@ -56,12 +56,8 @@ public class SeasonStatsTO {
         this.totalWalks += totalWalks;
     }
 
-    public int getTotalGames() {
-        return totalGames;
-    }
-
-    public void setTotalGames(int totalGames) {
-        this.totalGames += totalGames;
+    public void addToTotalGames() {
+        this.totalGames += 1;
     }
 
     public float calculateAveragePitchesPerGame(){
@@ -92,7 +88,7 @@ public class SeasonStatsTO {
         addToTotalHits(game.getHits());
         addToTotalStrikeouts(game.getStrikeouts());
         addToTotalWalks(game.getWalks());
-        setTotalGames(1);
+        addToTotalGames();
     }
 
     @Override

@@ -19,12 +19,6 @@
         <item name="android:padding">@dimen/game_entry_button_container_padding</item>
     </style>
 
-    <style name="ButtonContainerStylePrimary">
-        <item name="android:padding">@dimen/game_entry_button_container_padding</item>
-        <item name="android:background">?attr/selectableItemBackground</item>
-        <item name="android:minHeight">96dp</item>
-    </style>
-
     <style name="ButtonLabelTextStyle" parent="TextAppearance.AppCompat.Widget.Button">
 
     </style>
