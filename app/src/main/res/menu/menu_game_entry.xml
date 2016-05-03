@@ -6,9 +6,4 @@
         android:title="@string/game_entry_undo_menu_item"
         android:icon="@drawable/ic_undo_black_24dp"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/menu_item_history_master"
-        android:title="@string/game_entry_history_menu_item"
-        android:icon="@drawable/ic_format_list_numbered_black_24dp"
-        app:showAsAction="always" />
 </menu>

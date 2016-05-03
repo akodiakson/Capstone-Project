@@ -139,12 +139,6 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.menu_item_history_master) {
-            Intent intent = new Intent(getActivity(), GameSummaryListActivity.class);
-            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), rootView.findViewById(R.id.ball_strike_distribution_bar), getString(R.string.transition_name_game_to_master));
-            ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
-            return true;
-        }
         if (item.getItemId() == R.id.menu_item_history_undo) {
             if (!userActionsStack.isEmpty()) {
                 StatType peekedStatType = userActionsStack.peek();
@@ -389,5 +383,12 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         contentResolver.update(GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
         UpdateStatQueryHandler handler = new UpdateStatQueryHandler(getContext().getContentResolver(), new WeakReference<UpdateStatQueryHandler.UpdateStatQueryListener>(this));
         handler.startUpdate(statType.ordinal(), UPDATE_COOKIE, GameContentProvider.CONTENT_URI, contentValues, where, selectionArgs);
+    }
+
+    @OnClick(R.id.fab_game_entry_to_summary)
+    public void onGameSummaryClicked(View view){
+        Intent intent = new Intent(getActivity(), GameSummaryListActivity.class);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), rootView.findViewById(R.id.ball_strike_distribution_bar), getString(R.string.transition_name_game_to_master));
+        ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
     }
 }
