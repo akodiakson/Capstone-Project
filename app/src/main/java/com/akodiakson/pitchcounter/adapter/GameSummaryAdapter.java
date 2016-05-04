@@ -1,6 +1,5 @@
 package com.akodiakson.pitchcounter.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -135,10 +134,13 @@ public class GameSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                                 .commit();
                     }
                 } else {
-                    Context context = v.getContext();
-                    Intent intent = new Intent(context, GameSummaryDetailActivity.class);
-                    intent.putExtra(GameSummaryDetailFragment.ARG_ITEM_ID, game);
-                    context.startActivity(intent);
+                    if (mActivityWeakReference != null && mActivityWeakReference.get() != null) {
+                        FragmentActivity fragmentActivity = mActivityWeakReference.get();
+                        Intent intent = new Intent(fragmentActivity, GameSummaryDetailActivity.class);
+                        intent.putExtra(GameSummaryDetailFragment.ARG_ITEM_ID, game);
+                        fragmentActivity.startActivity(intent);
+                        fragmentActivity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                    }
                 }
             }
         });

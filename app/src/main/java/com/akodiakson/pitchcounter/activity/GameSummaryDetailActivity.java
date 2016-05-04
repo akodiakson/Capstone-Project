@@ -127,6 +127,12 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+    }
+
     @Subscribe
     public void onImagesRetrieved(ImagesRetrievedEvent event){
         PitchCounterApplication application = (PitchCounterApplication)getApplication();
