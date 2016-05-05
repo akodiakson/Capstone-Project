@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 public class GameContentProvider extends ContentProvider {
 
@@ -28,8 +27,6 @@ public class GameContentProvider extends ContentProvider {
 
     @Override
     public String getType(@NonNull Uri uri) {
-        // TODO: Implement this to handle requests for the MIME type of the data
-        // at the given URI.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -66,12 +63,10 @@ public class GameContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
-        int rowsUpdated = gameDbHelper.getWritableDatabase().update(
+        return gameDbHelper.getWritableDatabase().update(
                 GameContract.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
-        Log.i(TAG, "update: rowsUpdated: " + rowsUpdated);
-        return rowsUpdated;
     }
 }

@@ -35,8 +35,6 @@ import jp.wasabeef.picasso.transformations.gpu.VignetteFilterTransformation;
  * item details are presented side-by-side with a list of items
  * in a {@link GameSummaryListActivity}.
  */
-//TODO -- 1. Initialize calls to get average stats
-//TODO -- 2. Initialize calls to get season stats
 public class GameSummaryDetailActivity extends AppCompatActivity {
 
     private Tracker defaultTracker;
@@ -108,7 +106,6 @@ public class GameSummaryDetailActivity extends AppCompatActivity {
         ButterKnife.unbind(this);
         BusProvider.getInstance().unregister(this);
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

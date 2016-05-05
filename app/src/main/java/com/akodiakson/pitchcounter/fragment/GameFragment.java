@@ -47,14 +47,8 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-//TODO -- 0. When undoing, undo numbers from the total correctly
-//TODO -- 1. If there are zero pitches for the current game, then don't show it in the summary list
-//TODO -- 2. Format dates displayed
-//TODO -- 3. Consider displays not based on the database for faster updates
-//TODO -- 4. Transition to summary list
 public class GameFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, UpdateStatQueryHandler.UpdateStatQueryListener {
 
-    private static final String TAG = "GameFragment";
     private static final int UPDATE_COOKIE = -1;
     @Bind(R.id.game_entry_pitch_count_value)
     TextView pitchCount;
