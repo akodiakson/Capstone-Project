@@ -1,6 +1,8 @@
 package com.akodiakson.pitchcounter.fragment;
 
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.BounceInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -335,12 +338,27 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
     }
 
     private void updateCounts(Game game) {
-        pitchCount.setText(String.valueOf(game.getPitches()));
+        String nextPitchCountText = String.valueOf(game.getPitches());
+        if(!pitchCount.getText().toString().equals(nextPitchCountText)){
+            pitchCount.setText(nextPitchCountText);
+            animatePitchCountChanged();
+        }
+
         strikeCount.setText(String.valueOf(game.getStrikes()));
         ballCount.setText(String.valueOf(game.getBalls()));
         walkCount.setText(String.valueOf(game.getWalks()));
         hitCount.setText(String.valueOf(game.getHits()));
         strikeoutCount.setText(String.valueOf(game.getStrikeouts()));
+    }
+
+    private void animatePitchCountChanged() {
+        ObjectAnimator animatorX = ObjectAnimator.ofFloat(pitchCount, "scaleX", 0.8f, 1.0f);
+        ObjectAnimator animatorY = ObjectAnimator.ofFloat(pitchCount, "scaleY", 0.8f, 1.0f);
+        AnimatorSet set = new AnimatorSet();
+        set.setDuration(getActivity().getResources().getInteger(android.R.integer.config_shortAnimTime));
+        set.setInterpolator(new BounceInterpolator());
+        set.playTogether(animatorX, animatorY);
+        set.start();
     }
 
     @Override
