@@ -6,7 +6,6 @@
     android:orientation="horizontal"
     android:paddingTop="@dimen/summary_vertical_padding"
     android:paddingBottom="@dimen/summary_vertical_padding"
-    android:background="@color/colorPrimary"
     android:baselineAligned="false">
 
     <LinearLayout

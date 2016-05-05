@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    tools:showIn="@layout/fragment_game">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/game_entry_pitch_count_value"
+            style="@style/PitchCountHeroTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="@string/game_entry_numeric_default_value"
+            android:transitionName="@string/transition_name_game_hero_master_hero" />
+
+        <TextView
+            android:id="@+id/game_entry_pitch_count_label"
+            style="@style/ButtonLabelTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="@string/game_entry_pitch_count_label" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_game_entry_to_summary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/fab_summary_list_start_or_resume_game_content_description"
+        android:src="@drawable/ic_format_list_numbered_black_24dp"
+        app:fabSize="mini" />
+</FrameLayout>

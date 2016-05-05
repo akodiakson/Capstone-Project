@@ -1,7 +1,6 @@
 package com.akodiakson.pitchcounter.fragment;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -93,10 +92,6 @@ public class GameSummaryDetailFragment extends Fragment {
     }
 
     private void setPitchDistribution() {
-        Resources resources = getActivity().getResources();
-        ((TextView) rootView.findViewById(R.id.distribution_ball_count)).setText(resources.getString(R.string.distribution_balls, mItem.getBalls()));
-        ((TextView) rootView.findViewById(R.id.distribution_strike_count)).setText(resources.getString(R.string.distribution_strikes, mItem.getStrikes()));
-
         View barBalls = rootView.findViewById(R.id.bar_balls);
         View barStrikes = rootView.findViewById(R.id.bar_strikes);
         LinearLayout.LayoutParams ballLayoutParams = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, mItem.getBalls());
