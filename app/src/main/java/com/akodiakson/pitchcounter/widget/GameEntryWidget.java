@@ -62,7 +62,7 @@ public class GameEntryWidget extends AppWidgetProvider {
                 new String[]{gameDate}, null);
 
         Game game;
-        if (cursor != null) {
+        if (cursor != null && cursor.getCount() > 0) {
             cursor.moveToFirst();
             game = GameCursorUtil.buildGame(cursor);
             cursor.close();
