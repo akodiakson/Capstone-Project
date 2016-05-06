@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PitchCountHeroTextStyle" parent="TextAppearance.AppCompat.Display4">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+</resources>

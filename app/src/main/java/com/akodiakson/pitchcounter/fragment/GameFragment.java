@@ -108,13 +108,15 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
         setHasOptionsMenu(true);
         setRetainInstance(true);
 
-        Date today = new Date();
-        gameDate = new SimpleDateFormat("yyyyMMdd").format(today);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        Date today = new Date();
+        gameDate = new SimpleDateFormat("yyyyMMdd").format(today);
+
         defaultTracker.setScreenName("GameFragment");
         defaultTracker.send(new HitBuilders.ScreenViewBuilder().build());
         getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_DOES_GAME_EXIST_FOR_DATE, null, this);
@@ -279,9 +281,11 @@ public class GameFragment extends Fragment implements LoaderManager.LoaderCallba
                 int numberOfGamesToday = data.getInt(countForDateIndex);
                 boolean doesGameExist = numberOfGamesToday > 0;
                 if (!doesGameExist) {
+                    userActionsStack.clear();
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(GameContract.DATE, gameDate);
                     getContext().getContentResolver().insert(GameContentProvider.CONTENT_URI, contentValues);
+                    updateCounts(new Game());
                 } else {
                     //Populate values on the six fields
                     getLoaderManager().restartLoader(LoaderIdConstants.LOADER_ID_GET_GAME_SUMMARY, null, this);
